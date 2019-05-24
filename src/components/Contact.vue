@@ -2,7 +2,167 @@
   <div class="contact">
       <div class="clients">
           <div class="unutra">
-              
+              <h4>SOME TALK OF OUR CLIENTS</h4>
+<!-- 
+              <div class="tab">
+                  <div class="inside-tab">
+                      <div class="up">
+                          <img src="../assets/osoba1.png" alt="osoba">
+                          <h6>RITA WATSON</h6>
+                          <p>Web Designer</p>
+                      </div>
+                      <div class="down">
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum 
+                          has been the industry's standard dummy text ever since the 1500s,good.</p>
+                      </div>
+                  </div>
+              </div> -->
+
+
+              <!-- caroseul -->
+                    <div class="container">
+            <div class="row blog">
+                <div class="col-md-12">
+                    <div id="blogCarousel" class="carousel slide" data-ride="carousel">
+
+                        <ol class="carousel-indicators">
+                            <li data-target="#blogCarousel" data-slide-to="0"></li>
+                            <li data-target="#blogCarousel" data-slide-to="1" class="active"></li>
+                            <li data-target="#blogCarousel" data-slide-to="2"></li>
+                        </ol>
+
+                        <!-- Carousel items -->
+                        <div class="carousel-inner">
+
+                            <div class="carousel-item active">
+                                <div class="row">
+                                    <div class="col-md-6" id="item">
+                                         <div class="tab">
+                  <div class="inside-tab">
+                      <div class="up">
+                          <img src="../assets/osoba1.png" alt="osoba">
+                          <h6>RITA WATSON</h6>
+                          <p>Web Designer</p>
+                      </div>
+                      <div class="down">
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum 
+                          has been the industry's standard dummy text ever since the 1500s,good.</p>
+                      </div>
+                  </div>
+              </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                         <div class="tab">
+                  <div class="inside-tab">
+                      <div class="up">
+                          <img src="../assets/osoba2.png" alt="osoba">
+                          <h6>RITA WATSON</h6>
+                          <p>Web Designer</p>
+                      </div>
+                      <div class="down">
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum 
+                          has been the industry's standard dummy text ever since the 1500s,good.</p>
+                      </div>
+                  </div>
+              </div>
+                                    </div>
+                                    
+                                   
+                                </div>
+                                <!--.row-->
+                            </div>
+                            <!--.item-->
+
+                            <div class="carousel-item">
+                                <div class="row">
+                                   <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="tab">
+                  <div class="inside-tab">
+                      <div class="up">
+                          <img src="../assets/osoba3.jpg" alt="osoba" class="uredjivanje-slike">
+                          <h6>RITA WATSON</h6>
+                          <p>Web Designer</p>
+                      </div>
+                      <div class="down">
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum 
+                          has been the industry's standard dummy text ever since the 1500s,good.</p>
+                      </div>
+                  </div>
+              </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="tab">
+                  <div class="inside-tab">
+                      <div class="up">
+                          <img src="../assets/osoba4.jpg" alt="osoba" class="uredjivanje-slike">
+                          <h6>RITA WATSON</h6>
+                          <p>Web Designer</p>
+                      </div>
+                      <div class="down">
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum 
+                          has been the industry's standard dummy text ever since the 1500s,good.</p>
+                      </div>
+                  </div>
+              </div>
+                                    </div>
+                                    
+                                   
+                                </div>
+                                   
+                                </div>
+                                <!--.row-->
+                            </div>
+                            <!--.item-->
+                       <div class="carousel-item">
+                                <div class="row">
+                                   <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="tab">
+                  <div class="inside-tab">
+                      <div class="up">
+                          <img src="../assets/osoba5.jpg" alt="osoba" class="uredjivanje-slike">
+                          <h6>RITA WATSON</h6>
+                          <p>Web Designer</p>
+                      </div>
+                      <div class="down">
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum 
+                          has been the industry's standard dummy text ever since the 1500s,good.</p>
+                      </div>
+                  </div>
+              </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="tab">
+                  <div class="inside-tab">
+                      <div class="up">
+                          <img src="../assets/osoba6.jpg" alt="osoba" class="uredjivanje-slike">
+                          <h6>RITA WATSON</h6>
+                          <p>Web Designer</p>
+                      </div>
+                      <div class="down">
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum 
+                          has been the industry's standard dummy text ever since the 1500s,good.</p>
+                      </div>
+                  </div>
+              </div>
+                                    </div>
+                                    
+                                   
+                                </div>
+                                   
+                                </div>
+                                <!--.row-->
+                            </div>
+                        </div>
+                        <!--.carousel-inner-->
+                    </div>
+                    <!--.Carousel-->
+
+                </div>
+            </div>
+</div>
+              <!-- kraj caroseula -->
           </div>
       </div>
   <div class="hello-contact">
@@ -122,7 +282,8 @@ export default {
     .unutra {
       width: 1170px;
       height: 434px;
-      background-color: aqua;
+      color: white;
+      
     }
     .hello-contact{
       width: 100%;
@@ -146,6 +307,7 @@ export default {
     iframe {
       overflow: hidden;
     }
+
 
     .inside-div{
       width: 1134px;
@@ -249,6 +411,84 @@ export default {
       left : 0;
 
     }
+
+    .tab{
+      width: 570px;
+      height: 277px;
+      position: relative;
+      margin-top: 41px;
+      margin-left: 40px;
+      
+
+    }
+    .inside-tab {
+      position: absolute;
+      width: 85%;
+      height: 250px;
+      bottom: 0;
+      left: 0;
+      border: 1px solid white;
+      border-radius: 3px; 
+      display: flex;
+      align-items: center;
+       justify-content: center;
+    }
+
+    .up {
+      width: 132px;
+      height: 187px;
+      position: absolute;
+      top:-50px;
+      margin-bottom: 20px;
+      
+    }
+    .up h6 {
+      font-size: 18px;
+      padding-top: 5px;
+
+    }
+    .up p {
+      font-size: 14px;
+      
+    }
+
+    .down {
+      width: 368px;
+      height: 113px;
+      padding-top: 20px;
+      position: absolute;
+      bottom: 0;
+      text-align: left;
+      margin-bottom: 20px;
+
+    }
+
+    .down p {
+      font-size: 15px;
+    }
+
+    .unutra h4 {
+      font-size: 32px;
+    }
+
+    .carousel-indicators {
+      position: absolute;
+      bottom: -100px;
+    }
+
+    .uredjivanje-slike {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+    }
+
+    /* caroseul */
+        
+
+/* The colour of the indicators */
+
+    /* kraj caroseula */
+    
     
 
 </style>

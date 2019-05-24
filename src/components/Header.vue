@@ -15,7 +15,7 @@
         
       </ul>
       </div>
-      <div class="section3"><a href="#">Try for free</a></div>
+      <div class="section3"><a href="#"> <span>Login</span> or Register</a></div>
 
   </div>
 </template>
@@ -98,6 +98,9 @@ a {
   text-decoration: none;
   color: white;
 }
+ a span {
+     color: #29e4b7;
+ }
 .section3:hover {
     cursor: pointer;
     /* z-index: 2; */
