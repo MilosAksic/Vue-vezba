@@ -22,9 +22,13 @@
                 <li>
 
                   <a href="https://play.google.com/store/apps?hl=en" target="_blank">
+                      <div class="glavni">
+
+                      
                       <div class="logo"><img src="../assets/play-store.png" alt="PlayStore"></div>
-                      <div class="text">Get it from <br>
+                      <div class="text">Get it from
                           Play store
+                          </div>
                           </div>
                     </a>
                 </li>
@@ -80,11 +84,24 @@ body {
   height: 425px;
   
 }
+
+.glavni {
+  width: 150px;
+  height: 53px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .text {
-  width: 65%;
+  width: 91px;
+  height: 53px;
+  font-size: 16px;
 }
 .logo {
-  width: 25%;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  padding: 0;
   
 }
 a div {
@@ -122,13 +139,18 @@ li {
 
   a {
   text-decoration: none;
+  width: 100%;
+  height: 100%;
   color: #202646;
   display: flex;
+  /* flex-direction: row; */
   justify-content: center;
-  justify-items: center;
-  flex-direction: row;
+  align-items: center;
   font-size: 18px;
+  
 }
+
+
 a:hover {
     text-decoration: none;
     color: #202646;
@@ -143,5 +165,6 @@ img {
   /* box-shadow: 0px 0px 5px #fff; */
 
 }
+
 
 </style>

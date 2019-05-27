@@ -15,7 +15,7 @@
         
       </ul>
       </div>
-      <div class="section3"><a href="#"> <span>Login</span> or Register</a></div>
+      <div class="section3"><router-link  to="/login" class="nav-item"> <span>Login</span> or Register</router-link></div>
 
   </div>
 </template>
@@ -61,7 +61,7 @@ export default {
         width: 60%;
         font-size: 20px;
     }
-     a:hover {
+     a:hover ,.nav-item:hover{
         font-weight: 700;
         text-decoration: none;
         color: white;
@@ -76,7 +76,7 @@ export default {
          
 
     }
-    .section3 a {
+    .section3 a  , .section3 .nav-item{
         padding : 20px;
         background-color: white;
         color: #202646;
@@ -94,11 +94,11 @@ export default {
     .section1 {
         font-size: 34px;
     }
-a {
+a , .nav-item{
   text-decoration: none;
   color: white;
 }
- a span {
+ .nav-item span{
      color: #29e4b7;
  }
 .section3:hover {

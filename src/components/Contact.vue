@@ -56,8 +56,8 @@
                   <div class="inside-tab">
                       <div class="up">
                           <img src="../assets/osoba2.png" alt="osoba">
-                          <h6>RITA WATSON</h6>
-                          <p>Web Designer</p>
+                          <h6>Mart Butterhof</h6>
+                          <p>CEO</p>
                       </div>
                       <div class="down">
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum 
@@ -81,8 +81,8 @@
                   <div class="inside-tab">
                       <div class="up">
                           <img src="../assets/osoba3.jpg" alt="osoba" class="uredjivanje-slike">
-                          <h6>RITA WATSON</h6>
-                          <p>Web Designer</p>
+                          <h6>Floriann Pored</h6>
+                          <p> Designer</p>
                       </div>
                       <div class="down">
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum 
@@ -96,7 +96,7 @@
                   <div class="inside-tab">
                       <div class="up">
                           <img src="../assets/osoba4.jpg" alt="osoba" class="uredjivanje-slike">
-                          <h6>RITA WATSON</h6>
+                          <h6>Angela Cha</h6>
                           <p>Web Designer</p>
                       </div>
                       <div class="down">
@@ -122,8 +122,8 @@
                   <div class="inside-tab">
                       <div class="up">
                           <img src="../assets/osoba5.jpg" alt="osoba" class="uredjivanje-slike">
-                          <h6>RITA WATSON</h6>
-                          <p>Web Designer</p>
+                          <h6>Milos Aksic</h6>
+                          <p>React Developer</p>
                       </div>
                       <div class="down">
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum 
@@ -137,7 +137,7 @@
                   <div class="inside-tab">
                       <div class="up">
                           <img src="../assets/osoba6.jpg" alt="osoba" class="uredjivanje-slike">
-                          <h6>RITA WATSON</h6>
+                          <h6>Arnold Morgen</h6>
                           <p>Web Designer</p>
                       </div>
                       <div class="down">
@@ -178,7 +178,7 @@
                   <div class="unutraLevo">
                       <div class="inside">
                         <div class="left">
-                          
+                            <img src="../assets/location.png" alt="lokacija">
                         </div>
                         <div class="right">
                             <p class="bold">Location:</p>
@@ -187,7 +187,7 @@
                       </div>
                       <div class="inside">
                         <div class="left">
-                          
+                            <img src="../assets/phone-contact.png" alt="lokacija">
                         </div>
                         <div class="right">
                             <p class="bold">Phone:</p>
@@ -196,7 +196,7 @@
                       </div>
                       <div class="inside">
                         <div class="left">
-                          
+                              <img src="../assets/mail.png" alt="lokacija">
                         </div>
                         <div class="right">
                             <p class="bold">Website:</p>
@@ -206,10 +206,10 @@
                   </div>
               </div>
               <div class="desno">
-                <form action="">
-                    <input type="text" placeholder="Name">
-                    <input type="email" placeholder="Email">
-                    <textarea name="textArea" id="textArea" cols="30" rows="10" placeholder="Your Massage"></textarea>
+                <form action="https://formspree.io/milosaksic@hotmail.com" method="POST">
+                    <input type="text" placeholder="Name" name="name">
+                    <input type="email" placeholder="Email" name="email">
+                    <textarea name="Poruka" id="textArea" cols="30" rows="10" placeholder="Your Massage" ></textarea>
                     <input type="submit" value="Send Message">
                 </form>
               </div>
@@ -409,6 +409,8 @@ export default {
       position: absolute;
       bottom: 0;
       left : 0;
+      border: none;
+      
 
     }
 
@@ -462,6 +464,11 @@ export default {
       margin-bottom: 20px;
 
     }
+    .left img {
+      width: 20px;
+      height: 25px;
+
+    }
 
     .down p {
       font-size: 15px;
@@ -474,6 +481,13 @@ export default {
     .carousel-indicators {
       position: absolute;
       bottom: -100px;
+    }  
+
+    .carousel-indicators li {
+      border-radius: 50%;
+         width: 15px;
+    height: 15px;
+    margin-left: 5px; 
     }
 
     .uredjivanje-slike {
