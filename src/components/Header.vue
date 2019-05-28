@@ -15,7 +15,8 @@
         
       </ul>
       </div>
-      <div class="section3"><router-link  to="/login" class="nav-item"> <span>Login</span> or Register</router-link></div>
+      <div class="section3"><router-link  to="/login" class="nav-item"> 
+      <span>Login</span> or Register</router-link></div>
 
   </div>
 </template>
@@ -105,4 +106,31 @@ a , .nav-item{
     cursor: pointer;
     /* z-index: 2; */
 }
+/* 
+ @media only screen and (max-width: 360px) {
+    
+     .Header {
+         margin: 0;
+         padding: 0;
+        
+         
+     }
+     .section1,.section3 {
+        width : 15%;
+
+    }
+    .section2 {
+        width: 70%;
+        margin:0;
+        padding: 0;
+        font-size: 20px;
+    }
+}
+@media only screen and (min-width: 361px) and (max-width: 768px) {
+    
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+    
+} */
 </style>

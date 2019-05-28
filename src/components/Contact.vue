@@ -20,7 +20,7 @@
 
 
               <!-- caroseul -->
-                    <div class="container">
+           <div class="container">
             <div class="row blog">
                 <div class="col-md-12">
                     <div id="blogCarousel" class="carousel slide" data-ride="carousel">
@@ -484,8 +484,8 @@ export default {
     }  
 
     .carousel-indicators li {
-      border-radius: 50%;
-         width: 15px;
+    border-radius: 50%;
+    width: 15px;
     height: 15px;
     margin-left: 5px; 
     }

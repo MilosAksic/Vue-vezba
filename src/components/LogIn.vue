@@ -1,13 +1,16 @@
 <template>
-  <div class="LogIn">
+  <div class="LogIn page">
       <div class="unutra">
           <img src="../assets/DEMO.svg" alt="Demo">
           <form action="">
             <input type="text" placeholder="Username">
-            <input type="text" placeholder="Password">
-            <input type="submit" value="SIGN IN"> 
-            <p>Forgot password? Or if you don’t have an account 
-              <router-link  to="/Password" class="nav-item">Click here!</router-link>
+            <input type="text" placeholder="Password" id="pass">
+            <!-- <input type="submit" value="SIGN IN">  -->
+             <router-link  to="/Users" id="nav-item2" >SIGN IN</router-link><br>
+            <p>Forgot password? 
+              <router-link  to="/Password" class="nav-item"> Click here!</router-link><br>
+              Or if you don’t have an account 
+              <router-link  to="/Register" class="nav-item"> Click here!</router-link>
             </p>
           </form>
       </div>
@@ -28,7 +31,7 @@ export default {
       width: 100%;
       height: 1080px;
       text-align: center;
-      background-color: #13253B;
+      background: url('../assets/Pozadina2.png');
       display: flex;
       justify-content: center;
       align-items: center;
@@ -40,7 +43,7 @@ export default {
       height: 473px;
     }
     .unutra img {
-      width: 182px;
+      width: 200px;
       height: 87px;
       margin-bottom: 57px;
 
@@ -48,10 +51,12 @@ export default {
     p {
       color:white;
       font-size: 15px;
+      margin-top: 40px;
       
     }
     .nav-item {
       color: #1FE7B6;
+      margin-bottom: 20px;
 
     }
     input[type=text] {
@@ -60,25 +65,33 @@ export default {
       margin-bottom: 17px;
       color: #1FE7B6;
       text-align: center;
+      
     }
     ::placeholder {
       color : #1FE7B6;
       font-size: 20px;
     }
-    input[type=submit] {
-      width: 248px;
-      height: 54px;
+    #pass {
+      margin-bottom: 50px;
+    }
+    #nav-item2 {
+      
       margin-top: 43px;
       margin-bottom: 38px;
       color:white;
       background-color: #1FE7B6;
       border: none;
       font-size: 20px;
+      padding: 20px 50px;
     }
-    input[type=submit], input[type=text] {
+    #nav-item2  , input[type=text] {
       border-radius: 54px;
 
     }
+    .page {
+  position: fixed;
+  width: inherit;
+}
 
     
 </style>

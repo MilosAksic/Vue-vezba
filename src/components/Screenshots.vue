@@ -6,60 +6,6 @@
            such as a web browser, email client, calendar, mapping program.</p>
       </div>
       <div class="dole">
-        <!-- //caroseul -->
-         <!-- <div  id="container-div">
-
-
-        <div id="bs4-multi-slide-carousel" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="row">
-                        <div class="col"><img src="../assets/caroseul1.png" class="img-fluid" alt="1 slide"></div>
-                        <div class="col"><img src="../assets/caroseul2.png" class="img-fluid" alt="2 slide"></div>
-                        <div class="col"><img src="../assets/caroseul3.png" class="img-fluid" alt="3 slide"></div>
-                        <div class="col"><img src="../assets/caroseul4.png" class="img-fluid" alt="2 slide"></div>
-                        <div class="col"><img src="../assets/caroseul5.png" class="img-fluid" alt="3 slide"></div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="row">
-                           <div class="col"><img src="../assets/caroseul2.png" class="img-fluid" alt="1 slide"></div>
-                        <div class="col"><img src="../assets/caroseul3.png" class="img-fluid" alt="2 slide"></div>
-                        <div class="col"><img src="../assets/caroseul4.png" class="img-fluid" alt="3 slide"></div>
-                        <div class="col"><img src="../assets/caroseul5.png" class="img-fluid" alt="2 slide"></div>
-                        <div class="col"><img src="../assets/caroseul1.png" class="img-fluid" alt="3 slide"></div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="row">
-                           <div class="col"><img src="../assets/caroseul3.png" class="img-fluid" alt="1 slide"></div>
-                        <div class="col"><img src="../assets/caroseul4.png" class="img-fluid" alt="2 slide"></div>
-                        <div class="col"><img src="../assets/caroseul5.png" class="img-fluid" alt="3 slide"></div>
-                        <div class="col"><img src="../assets/caroseul1.png" class="img-fluid" alt="2 slide"></div>
-                        <div class="col"><img src="../assets/caroseul2.png" class="img-fluid" alt="3 slide"></div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="row">                        
-                       <div class="col"><img src="../assets/caroseul4.png" class="img-fluid" alt="1 slide"></div>
-                        <div class="col"><img src="../assets/caroseul5.png" class="img-fluid" alt="2 slide"></div>
-                        <div class="col"><img src="../assets/caroseul1.png" class="img-fluid" alt="3 slide"></div>
-                        <div class="col"><img src="../assets/caroseul2.png" class="img-fluid" alt="2 slide"></div>
-                        <div class="col"><img src="../assets/caroseul3.png" class="img-fluid" alt="3 slide"></div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="row">                        
-                        <div class="col"><img src="../assets/caroseul5.png" class="img-fluid" alt="1 slide"></div>
-                        <div class="col"><img src="../assets/caroseul1.png" class="img-fluid" alt="2 slide"></div>
-                        <div class="col"><img src="../assets/caroseul2.png" class="img-fluid" alt="3 slide"></div>
-                        <div class="col"><img src="../assets/caroseul3.png" class="img-fluid" alt="2 slide"></div>
-                        <div class="col"><img src="../assets/caroseul4.png" class="img-fluid" alt="3 slide"></div>
-                    </div>
-                </div>
-            </div>
-            </div> 
-            </div>   -->
 
         <div id="carouselExampleControls" class="carousel slide text-center mt-3" data-ride="carousel" data-interval="3000">
       <div class="carousel-inner">

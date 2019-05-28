@@ -1,7 +1,7 @@
 <template>
 
-  <div id="Sajt">
-    <router-view/> 
+  <div id="Sajt page">
+    
     <div id="krug"></div>
     <div class="pozadina">
       
@@ -94,4 +94,26 @@ html {
 li:hover {
     cursor: pointer;
   }
+
+  .page {
+  position: fixed;
+  width: inherit;
+}
+
+  /* @media only screen and (max-width: 360px) {
+    #Sajt{
+      width: 360px;
+    }
+}
+@media only screen and (max-width: 768px) {
+    #Sajt{
+      width: 720px;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    #Sajt{
+      width: 1024px;
+    }
+} */
 </style>
