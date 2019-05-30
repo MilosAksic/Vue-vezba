@@ -1,6 +1,7 @@
 <template>
 
   <div id="app">
+    <!-- {{info}} -->
     <transition name="router-anim" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
     <router-view/> 
     </transition>
@@ -9,10 +10,27 @@
 
 <script>
 
+import axios from 'axios';
+
 
 
 export default {
   name: 'app',
+  data () {
+    return {
+      info: null
+    }
+  },
+  mounted () {
+  //   this.$axios.get('https://api.coindesk.com/v1/bpi/currentprice.json').then((response) => {
+  // console.log(response.data)
+  // })
+
+  // axios
+  //     .get('https://api.coindesk.com/v1/bpi/currentprice.json')
+  //     .then(response => (this.info = response))
+
+  },
   components: {
     
   }

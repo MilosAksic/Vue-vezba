@@ -3,23 +3,6 @@
       <div class="clients">
           <div class="unutra">
               <h4>SOME TALK OF OUR CLIENTS</h4>
-<!-- 
-              <div class="tab">
-                  <div class="inside-tab">
-                      <div class="up">
-                          <img src="../assets/osoba1.png" alt="osoba">
-                          <h6>RITA WATSON</h6>
-                          <p>Web Designer</p>
-                      </div>
-                      <div class="down">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum 
-                          has been the industry's standard dummy text ever since the 1500s,good.</p>
-                      </div>
-                  </div>
-              </div> -->
-
-
-              <!-- caroseul -->
            <div class="container">
             <div class="row blog">
                 <div class="col-md-12">

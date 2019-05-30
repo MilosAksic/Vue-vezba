@@ -30,6 +30,8 @@ import Pricing from './components/Pricing.vue';
 import Screenshots from './components/Screenshots.vue';
 import Contact from './components/Contact.vue';
 
+// Vue.prototype.$http = axios
+
 
 export default {
   name: 'Sajt',
@@ -41,8 +43,22 @@ export default {
     Pricing,
     Screenshots,
     Contact
+  },
+  data () {
+    return {
+      info:' dfdsfs'
+    }
+  },
+
+  mounted () {
+   
   }
+  
+
 }
+   
+
+// https://baza-filmova.herokuapp.com/filmovi/ 
 </script>
 
 <style>

@@ -5,6 +5,7 @@
     <img src="../assets/DEMO.svg" alt="Demo">
 
     <div class="desno">
+        <button id="uploadButton">Upload User</button>
         <h4>Upload Users</h4>
         <p>If you would like to seed your mailing with names of people
            within your organization, add their names here</p>
@@ -70,15 +71,31 @@ h4,p {
 
 h4 {
   top: 71px;
-  left: 62px  ;
+  left: 82px  ;
 
 }
 p {
   
   top: 108px;
-  left: 62px  ;
+  left: 82px  ;
 
 
+}
+#uploadButton {
+  position: absolute;
+  top: 87px;
+  right: 94px;
+  width: 137px;
+  height: 38px;
+  background-color: white;
+  border-radius: 38px;
+  border: none;
+  color: #1CE2B2;
+  box-shadow: 2px 3px 1px 1px rgba(194,192,194,1);
+  cursor: pointer;
+}
+#uploadButton:hover , #uploadButton:active, #uploadButton:leave {
+  outline: none;
 }
     
 </style>

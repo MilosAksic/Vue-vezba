@@ -12,7 +12,7 @@ required preinstalled stitches way  email client, calendar, mapping program.</p>
           <!-- <img src="../assets/Phone.png" alt=""> -->
           <div class="slider-placeholder">
               <div class="images">
-                    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
       <img class="d-block w-100" src="../assets/caroseul1.png" alt="First">
@@ -204,7 +204,7 @@ export default {
   width:352px;
   height: 710px;
   background: url('../assets/Phone.png');
-  display: flex;
+  display: flex;  
   align-items: center;
   justify-content: center;
 }

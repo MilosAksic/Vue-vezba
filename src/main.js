@@ -4,8 +4,12 @@ import jQuery from 'jquery'
 import VueRouter from 'vue-router'
 import 'bootstrap/dist/css/bootstrap.css'
 import {routes} from './routes'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
-Vue.use(VueRouter)
+// import VueAxios from './plugins/axios'
+
+Vue.use(VueRouter, axios, VueAxios)
 
 const router = new VueRouter ({
   routes
