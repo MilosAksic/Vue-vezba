@@ -3,13 +3,14 @@ import App from './App.vue'
 import jQuery from 'jquery'
 import VueRouter from 'vue-router'
 import 'bootstrap/dist/css/bootstrap.css'
+import BootstrapVue from 'bootstrap-vue'
 import {routes} from './routes'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
 // import VueAxios from './plugins/axios'
 
-Vue.use(VueRouter, axios, VueAxios)
+Vue.use(VueRouter, axios, VueAxios, BootstrapVue)
 
 const router = new VueRouter ({
   routes

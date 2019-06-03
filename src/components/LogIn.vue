@@ -2,9 +2,9 @@
   <div class="LogIn page">
       <div class="unutra">
           <img src="../assets/DEMO.svg" alt="Demo">
-          <form action="">
-            <input type="text" placeholder="Username">
-            <input type="text" placeholder="Password" id="pass">
+          <form action="#" @submit.prevent="LogIn">
+            <input type="text" placeholder="Username" v-model="usrname">
+            <input type="text" placeholder="Password" id="pass" v-model="password">
             <!-- <input type="submit" value="SIGN IN">  -->
              <router-link  to="/Users" id="nav-item2" >SIGN IN</router-link><br>
             <p>Forgot password? 
@@ -21,6 +21,13 @@
 <script>
 export default {
   name: 'LogIn',
+  data(){
+    return {
+      username:"",
+      password:""
+    }
+  },
+  methods: {}
   
 }
 </script>

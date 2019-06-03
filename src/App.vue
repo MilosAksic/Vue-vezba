@@ -22,7 +22,7 @@ export default {
     }
   },
   mounted () {
-  //   this.$axios.get('https://api.coindesk.com/v1/bpi/currentprice.json').then((response) => {
+  // this.$axios.get('https://api.coindesk.com/v1/bpi/currentprice.json').then((response) => {
   // console.log(response.data)
   // })
 
@@ -54,6 +54,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  /* width: 100%; */
   width: 1920px;
   position: relative;
   margin:0 auto;

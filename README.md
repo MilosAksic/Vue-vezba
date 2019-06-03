@@ -14,18 +14,16 @@ npm run serve
 ```
 npm run build
 ```
-npm install bootstrap --save
 
-npm install jquery --save
+### Run your tests
+```
+npm run test
+```
 
-npm install vue-router --save
-
-npm install axios --save
-
-npm install vue-axios --save
-
-npm install bootstrap-vue --save
-
+### Lints and fixes files
+```
+npm run lint
+```
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
