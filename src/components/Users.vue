@@ -1,11 +1,34 @@
 <template>
   <div class="Users page">
 
+      <!-- modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Upload users
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div> 
+  <!-- kraj modala -->
     
     <img src="../assets/DEMO.svg" alt="Demo">
-
+    
     <div class="desno">
-        <button id="uploadButton">Upload User</button>
+         <!--  -->
+        <router-link to="/Messages" class="message-nav">Messages</router-link>
+        <button id="uploadButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Upload User</button>
         <h4>Upload Users</h4>
         <p>If you would like to seed your mailing with names of people
            within your organization, add their names here</p>
@@ -43,8 +66,19 @@
                             <p>{{user.created_at}}</p>
                           </div>
 
-                          <button class="dugme">. . .</button>
+                          <!-- <button class="dugme">. . .</button> -->
+                            <!-- dropdown -->
 
+                                  <div class="dropdown">
+                                    <button  class="dropbtn">...</button>
+                                    <div id="myDropdown" class="dropdown-content">
+                                      <a href="#home">Edit User</a>
+                                      <a href="#about">Delete User</a>
+                                      
+                                    </div>
+                                  </div>
+
+                            <!-- end dropdown -->
                           <div class="popUp">
                                  <button>
                                     Edit
@@ -96,6 +130,12 @@
                     <div class="index">
                       <span v-on:click="niz(11)">11</span>
                     </div>
+                    <div class="index">
+                      <span v-on:click="niz(12)">12</span>
+                    </div>
+                    <div class="index">
+                      <span v-on:click="niz(13)">13</span>
+                    </div>
                 </span>   
                 
                 
@@ -109,67 +149,22 @@
                 </svg>
               </div>
 
-                <!-- kraj paginacije -->
-
-<!-- <nav aria-label="Page navigation example">
-  <ul class="pagination pg-blue">
-    <li class="page-item disabled">
-      <a class="page-link" tabindex="-1" 
-                          >&laquo;</a>
-    </li>
-    <li class="page-item active" >
-                          <a class="page-link" v-on:click="niz(1)">1</a></li>
-    <li class="page-item" v-on:click="showActive = !showActive"
-                          v-bind:class="{ active: showActive }"
-   >
-      <a class="page-link " v-on:click="niz(2)">2 </a>
-    </li>
-    <li class="page-item"  v-on:click="showActive = !showActive"
-                          v-bind:class="{ active: showActive }">
-            <a class="page-link" v-on:click="niz(3)">3</a></li>
-   <li class="page-item"  v-on:click="showActive = !showActive"
-                          v-bind:class="{ active: showActive }">
-            <a class="page-link" v-on:click="niz(4)">4</a></li>
-    <li class="page-item" v-on:click="showActive = !showActive"
-                          v-bind:class="{ active: showActive }">
-              <a class="page-link" v-on:click="niz(5)">5</a></li>
-    <li class="page-item" v-on:click="showActive = !showActive"
-                          v-bind:class="{ active: showActive }" >
-              <a class="page-link" v-on:click="niz(6)">6</a></li>
-   <li class="page-item"  v-on:click="showActive = !showActive"
-                          v-bind:class="{ active: showActive }">
-              <a class="page-link" v-on:click="niz(7)">7</a></li>
-    <li class="page-item" v-on:click="showActive = !showActive"
-                          v-bind:class="{ active: showActive }">
-              <a class="page-link" v-on:click="niz(8)">8</a></li>
-    <li class="page-item" v-on:click="showActive = !showActive"
-                          v-bind:class="{ active: showActive }">
-              <a class="page-link" v-on:click="niz(9)">9</a></li>
-   <li class="page-item"  v-on:click="showActive = !showActive"
-                          v-bind:class="{ active: showActive }">
-              <a class="page-link" v-on:click="niz(10)">10</a></li>
-    <li class="page-item"  v-on:click="showActive = !showActive"
-                          v-bind:class="{ active: showActive }">
-              <a class="page-link" v-on:click="niz(11)">11</a></li>
-    
-    <li class="page-item">
-      <a class="page-link">&raquo;</a>
-    </li>
-  </ul>
-</nav> -->
 
 
               </div>
 
         </div>
     </div>
+
+    
+
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-import { log } from 'util';
-import { POINT_CONVERSION_COMPRESSED } from 'constants';
+// import { log } from 'util';
+// import { POINT_CONVERSION_COMPRESSED } from 'constants';
 
 export default {
   name: 'Users',
@@ -182,17 +177,48 @@ export default {
     }
   },
   mounted(){
+
     axios
     .get(`https://proxy-requests.herokuapp.com/http://comtrade.sytes.net/api/users?page=1`)
     .then(response => (this.users = response.data.data.data))
+    .then (()=>{
+        const buttons = document.querySelectorAll('.dropbtn')
+        const dropdowns = document.querySelectorAll('.dropdown-content')
+          
+        // Close the dropdown if the user clicks outside of it
+        for (let index = 0; index < buttons.length; index++) {
+          
+          buttons[index].addEventListener('click', ()=>{
+            dropdowns[index].classList.toggle("show");
+          })
+  
+}
+    })
 
+    //dropdown
 
+//     function myFunction() {
+//   document.getElementById("myDropdown").classList.toggle("show");
+// }
+
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
     // paginacija
     const c = document.querySelector('.containernovi')
 const indexs = Array.from(document.querySelectorAll('.index'))
 let cur = -1
 indexs.forEach((index, i) => {
-  index.addEventListener('click', (e) => {
+  index.addEventListener('click', () => {
     // clear
     
     c.className = 'containernovi'
@@ -235,9 +261,14 @@ indexs.forEach((index, i) => {
     .get(`https://proxy-requests.herokuapp.com/http://comtrade.sytes.net/api/users?page= ${pageNumber}` )
     .then(response => (this.users = response.data.data.data))
     },
+
+    myFunction: function(){
+            document.getElementById("myDropdown").classList.toggle("show");
+
+    },
     changeActive: function(){
       // const linkovi = document.querySelectorAll('.pagnation .page-link') 
-      console.log(this);
+      
     
       this.classList.toggle("active");
 
@@ -314,10 +345,16 @@ path {
     transform: translateX(388px);
   }
   .containernovi.i10 svg {
-    transform: translateX(433px);
+    transform: translateX(443px);
   }
   .containernovi.i11 svg {
-    transform: translateX(482px);
+    transform: translateX(492px);
+  }
+  .containernovi.i12 svg {
+    transform: translateX(542px);
+  }
+  .containernovi.i13 svg {
+    transform: translateX(595px);
   }
 @keyframes OpenRight {
   25% { stroke-dasharray: 100 150; }
@@ -524,4 +561,67 @@ p {
   display:none;
 
 }
+
+/* dropdown */
+
+.dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  width:40px;
+  height: 40px;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+
+.modal {
+  z-index: 2000;
+}
+.message-nav {
+      position: absolute;
+      top: -70px;
+      right: 250px;
+     
+      color:white;
+      background-color: #1FE7B6;
+      border: none;
+      font-size: 20px;
+      padding: 10px 30px;
+      border-radius:  50px;
+    }
+.message-nav:hover {
+      text-decoration: none;
+}
+
 </style>

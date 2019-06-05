@@ -5,6 +5,7 @@ import Password  from './components/Password'
 import Password2 from './components/Password2'
 import Users from './components/Users'
 import RegistrationSucces from './components/RegistrationSucces'
+import Messages from './components/Messages'
 
 export const routes = [
     {
@@ -41,6 +42,11 @@ export const routes = [
         path: '/Users',
         name:'Users',
         component:Users
-    }
+    },
+      {
+        path: '/Messages',
+        name:'Messages',
+        component:Messages
+     }
 
 ]
