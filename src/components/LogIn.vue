@@ -14,7 +14,7 @@
       <input v-model="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       
-      
+        
     </form>
 
       <!-- <router-link  to="/Users" id="nav-item2" >SIGN IN</router-link><br> -->
@@ -46,7 +46,7 @@ export default {
   methods: {
     login () {
       this.$http.post('/auth/login', { "email": this.email, 
-                                        "password": this.password})
+                                        "password": this.password}  )
          .then((request) => {
            this.loginSuccessful(request);
            console.log(request);

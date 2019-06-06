@@ -1,34 +1,64 @@
 <template>
   <div class="Users page">
+      <!-- <div id="modal-pozadina2" class="overlay">
 
-      <!-- modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <div id="modalEdit">
+                <span  id ="close2" class="close">&times;</span>
+                    <h2>Edit user</h2>
+                    <h3>Neki tekst..</h3>
+            
+        </div>
+
       </div>
-      <div class="modal-body">
-        Upload users
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+
+      <div id="modal-pozadina3" class="overlay">
+
+        <div id="modalDelete">
+                <span  id ="close3" class="close">&times;</span>
+                    <h2>Delete user</h2>
+                    <h3>Neki tekst..</h3>
+            
+        </div>
+
+      </div> -->
+
+
+    <div id="modal-pozadina" class="overlay">
+        <div id="modal">
+                <span  id ="close" class="close">&times;</span>
+                    <!-- forma -->
+                         <form class="form-signin" @submit.prevent="signup">
+      <h2 class="form-signin-heading">Add user</h2>
+      <label for="inputEmail" class="sr-only">Name</label>
+      <input v-model="ime" type="text" id="inputName" class="form-control" placeholder="Name" required autofocus>
+      <label for="inputEmail" class="sr-only">Email address</label>
+      <input v-model="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input v-model="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+
+      <label for="inputPassword" class="sr-only"> Repeat Password</label>
+      <input  v-model="confirmedPassword" type="password" id="repeatPassword" class="form-control" placeholder="Repeat password" required>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Add user</button>
+      
+    </form>
+                    <!-- kraj forme -->
+            
+        </div>
+
+        
+        
     </div>
-  </div>
-</div> 
+
+
   <!-- kraj modala -->
     
     <img src="../assets/DEMO.svg" alt="Demo">
-    
+    <button v-on:click="deleteUser(57)">Delete user 52</button>
     <div class="desno">
          <!--  -->
         <router-link to="/Messages" class="message-nav">Messages</router-link>
-        <button id="uploadButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Upload User</button>
+        
+        <button id="uploadButton" type="button">Upload User</button>
         <h4>Upload Users</h4>
         <p>If you would like to seed your mailing with names of people
            within your organization, add their names here</p>
@@ -72,8 +102,9 @@
                                   <div class="dropdown">
                                     <button  class="dropbtn">...</button>
                                     <div id="myDropdown" class="dropdown-content">
-                                      <a href="#home">Edit User</a>
-                                      <a href="#about">Delete User</a>
+                                      
+                                      <button class="edit">Edit User</button>
+                                      <button class="delete">Delete User</button>
                                       
                                     </div>
                                   </div>
@@ -163,6 +194,7 @@
 
 <script>
 import axios from 'axios';
+import { log } from 'util';
 // import { log } from 'util';
 // import { POINT_CONVERSION_COMPRESSED } from 'constants';
 
@@ -173,6 +205,14 @@ export default {
       users: [],
       perPage: 5,
       currentPage: 1,
+      userID:"",
+
+      ime:'',
+      email:'',
+      password:'',
+      confirmedPassword:''
+
+
 
     }
   },
@@ -182,8 +222,16 @@ export default {
     .get(`https://proxy-requests.herokuapp.com/http://comtrade.sytes.net/api/users?page=1`)
     .then(response => (this.users = response.data.data.data))
     .then (()=>{
+        // let korisnici = this.users;
+        // console.log(korisnici);
+        
         const buttons = document.querySelectorAll('.dropbtn')
         const dropdowns = document.querySelectorAll('.dropdown-content')
+        const Edits = document.querySelectorAll('.edit')
+        const Deletes = document.querySelectorAll('.delete')
+        
+
+
           
         // Close the dropdown if the user clicks outside of it
         for (let index = 0; index < buttons.length; index++) {
@@ -192,7 +240,32 @@ export default {
             dropdowns[index].classList.toggle("show");
           })
   
-}
+}           
+ for (let index = 0; index < Edits.length; index++) {
+          
+          Edits[index].addEventListener('click', ()=>{
+            console.log("radi edit"  + index);
+            console.log(korisnici[index]);
+          })
+  
+}           
+
+ for (let index = 0; index < Deletes.length; index++) {
+          
+          Deletes[index].addEventListener('click', ()=>{
+            console.log("radi delete" +index);
+            let korisnici = this.users;
+            let nekiId = korisnici[index].id
+            console.log(korisnici[index]);
+            
+            console.log(nekiId);
+            
+            this.deleteUser(nekiId);
+          })
+  
+}           
+
+
     })
 
     //dropdown
@@ -231,24 +304,28 @@ indexs.forEach((index, i) => {
     cur = i
   })
 })
-    // krajpaginacije
 
-    // const objekat = 'response.data.data.data';
-    // for (let index = 1; index < 3; index++) {
-     
     
+var modal = document.getElementById('modal-pozadina');
+var span = document.getElementById("close");
 
-      //  const dugmici = document.querySelectorAll('.dugme');
-      // const popUp = document.querySelectorAll('.popUp');
-      // console.log(dugmici);
-      // console.log(dugmici[0]);
-      //   for (let index = 0; index < dugmici.length; index++) {
-      //           dugmici[index].addEventListener('click', ()=> {
-      //                 console.log('radi');
-                      
-      //                 popUp[index].style.display = 'flex'
-      //           })
-      //       }
+document.getElementById("uploadButton").addEventListener('click', ()=>{
+    modal.style.display = "block";
+})
+
+
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+ 
+}
 
       
 
@@ -262,6 +339,12 @@ indexs.forEach((index, i) => {
     .then(response => (this.users = response.data.data.data))
     },
 
+    deleteUser: function (UserNumber) {
+          this.$http.delete(`/users/${UserNumber}`, {Authorization: localStorage.token})
+          
+          
+    },
+
     myFunction: function(){
             document.getElementById("myDropdown").classList.toggle("show");
 
@@ -272,7 +355,27 @@ indexs.forEach((index, i) => {
     
       this.classList.toggle("active");
 
-    }
+    }, 
+
+
+    signup (){
+      this.$http.post('/auth/signup', { "name": this.ime,
+                                        "email":this.email, 
+                                        "password": this.password,
+                                        "password_confirmation": this.confirmedPassword})
+         .then(request => this.signupSuccessful(request))
+          .catch(() => this.signupFailed())
+     
+    }, 
+    signupSuccessful () {
+          
+         
+      },
+
+        signupFailed () {
+          this.error = 'Sign Up failed!'
+          //  delete localStorage.token
+}
   }
 }
 
@@ -287,13 +390,15 @@ indexs.forEach((index, i) => {
   position: relative;
 }
 .index {
-  cursor: pointer;
-  /* font-size:22px; */
+
   display: inline;
   margin-right: 30px;
   padding: 5px;
   user-select: none;
   -moz-user-select: none;
+}
+.index span:hover {
+    cursor: pointer;
 }
 .index:last-child {
   margin: 0;
@@ -519,15 +624,6 @@ p {
 
   margin: 0 auto;
 
-/* 
-  align-items: center; 
-  color: #555;
-   display: flex;
-  font-family: 'Inter UI', sans-serif;
-  font-size: 1.25em;
-  justify-content: center;
-  height: 100vh; */
- 
 }
 
 .Drzac-kartica {
@@ -594,20 +690,17 @@ p {
   z-index: 1;
 }
 
-.dropdown-content a {
+.dropdown-content button {
   color: black;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
 }
 
-.dropdown a:hover {background-color: #ddd;}
+.dropdown button:hover {background-color: #ddd;}
 
 .show {display: block;}
 
-.modal {
-  z-index: 2000;
-}
 .message-nav {
       position: absolute;
       top: -70px;
@@ -623,5 +716,109 @@ p {
 .message-nav:hover {
       text-decoration: none;
 }
+/* modal  */
 
+.overlay{   
+    display: none; 
+  position: fixed; 
+  z-index: 1; 
+  overflow: auto; 
+  padding-top: 100px; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%;  
+  background-color: rgba(0,0,0,0.5);
+
+}
+.centar {
+    margin: 0 auto;
+    width: 400px;
+    height: 200px;
+    margin-top: 200px;
+}
+
+#modal , #modalDelete, #modalEdit {
+    background-color: #fefefe;
+    margin: auto;
+    z-index: 3; 
+    width: 680px;
+    height: 440px;
+    padding: 20px;
+    border: 3px solid #888;
+    border-radius: 20px;
+}
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+/* kraj modala */
+
+
+/* forma */
+
+
+#inputName ,#inputEmail {
+  width: 100%;
+   margin-bottom: 10px;
+}
+#inputEmail, #inputPassword,#repeatPassword  {
+  margin-bottom: 10px;
+  border-radius : 54px;
+  /* border : 1px solid gray; */
+}
+#inputPassword,#repeatPassword {
+  text-align: center;
+}
+.login-wrapper {
+  background: #fff;
+  width: 70%;
+  margin: 12% auto;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 10% 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+/* kraj forme */
 </style>

@@ -189,11 +189,11 @@
                   </div>
               </div>
               <div class="desno">
-                <form action="https://formspree.io/milosaksic@hotmail.com" method="POST">
-                    <input type="text" placeholder="Name" name="name">
-                    <input type="email" placeholder="Email" name="email">
-                    <textarea name="Poruka" id="textArea" cols="30" rows="10" placeholder="Your Massage" ></textarea>
-                    <input type="submit" value="Send Message">
+                <form method="POST" @submit.prevent="postMsg">
+                    <input  v-model="ime" type="text" placeholder="Name" name="name">
+                    <input  v-model="email" type="email" placeholder="Email" name="email">
+                    <textarea  v-model="poruka" name="Poruka" id="textArea" cols="30" rows="10" placeholder="Your Massage" ></textarea>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Send msg</button>
                 </form>
               </div>
             </div>
@@ -240,8 +240,28 @@
 <script>
 export default {
   name: 'Contact',
-  
+  data(){
+
+    return{
+        ime:'',
+        email:'',
+        poruka:''
+    }
+    
+  },
+  methods: {
+      postMsg(){
+      this.$http.post('/messages', { "name": this.ime,
+                                        "email":this.email, 
+                                        "body": this.poruka,
+                                      })
+         .then(request => console.log(request))
+          
+     
+    }
+  }
 }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

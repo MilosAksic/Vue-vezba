@@ -8,8 +8,8 @@
           <input type="email" placeholder="E-Mail Adress">
           <input type="text" placeholder="Phone Number" id="phone">  
           <router-link  to="/RegistrationSucces" class="nav-item">SUBMIT</router-link> -->
-<div class="login-wrapper border border-light">
-           <form class="form-signin" @submit.prevent="signup">
+      <div class="login-wrapper border border-light">
+    <form class="form-signin" @submit.prevent="signup">
       <h2 class="form-signin-heading">Please Sign Up</h2>
       <label for="inputEmail" class="sr-only">Name</label>
       <input v-model="ime" type="text" id="inputName" class="form-control" placeholder="Name" required autofocus>
