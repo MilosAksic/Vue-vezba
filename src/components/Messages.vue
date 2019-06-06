@@ -1,11 +1,11 @@
  <template>
     <div class="Messages page">
 
-      <div id="modal-pozadina" class="overlay">
+      <div   id="modal-pozadina" class="overlay">
         <div id="modal">
                 <span  id ="close" class="close">&times;</span>
                     <!-- forma -->
-              <form action="" @submit.prevent="postMsg(17)">
+              <form action="" @submit.prevent="postMsg(17)" id="EditDiv">
                     <h3>Edit Msg</h3>
                     <!-- <h3>ID : <span id="id"></span></h3> -->
                     <label for="name">Name: </label>
@@ -19,14 +19,22 @@
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Edit msg</button>
                 </form>
                     <!-- kraj forme -->
-            
+
+                 <div id="deleteMsg">
+                      <h3>Are you sure u want to delete this message?</h3>
+                      <button id="Yes">Yes</button>
+                      <button id="No">No</button>
+                </div>
+             
         </div>
 
         
         
     </div>
         <h1>Messages</h1>
+         <!-- <transition name="router-anim" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut"> -->
         <div class="poruke">
+            
             <div class="unutra" v-for="(message, index) in messages" :key="`message-${index}`">
                 <div class="gore">
                     <div class="levo"> <h2> <span class="id"> {{message.id}}</span>  <span class="plavo"> Name </span> : {{message.name}} &nbsp; &nbsp; &nbsp;   <span class="plavo"> Email: </span> : {{message.email}} </h2> </div>  
@@ -45,9 +53,11 @@
                     </div>
                 </div>
             </div>
+            
 
 
         </div>  
+        <!-- </transition> -->
 
         <div class="paginacija">
 
@@ -155,6 +165,9 @@ import { log } from 'util';
                   const Edits = document.querySelectorAll('.edit');
                   const modal = document.getElementById('modal-pozadina');
                   const span = document.getElementById("close");
+
+                   const deleteMsg = document.getElementById("deleteMsg");
+                   const EditDiv = document.getElementById("EditDiv");
                   
                   span.addEventListener('click', ()=> {
                         modal.style.display = "none";
@@ -171,10 +184,24 @@ import { log } from 'util';
           
                         Deletes[index].addEventListener('click', ()=>{
                         console.log("radi delete" +index);
+                        modal.style.display = "block";
+                        deleteMsg.style.display = "block";
+                        EditDiv.style.display = "none";
                         let poruke = this.messages;
-                        let nekiId = poruke[index].id
-                        this.deleteMessage(nekiId);
-                        alert('Message Deleted')
+                        let nekiId = poruke[index].id;
+                        document.getElementById ('Yes').addEventListener('click', async ()=> {
+                           await this.deleteMessage(nekiId);
+                            modal.style.display = "none";
+                            alert('Message Deleted')
+                          
+                            
+            })
+
+                        document.getElementById ('No').addEventListener ('click' , ()=> {
+                          modal.style.display = "none";
+                        })
+                        // this.deleteMessage(nekiId);
+                        // alert('Message Deleted')
                   })
   
                 }   
@@ -183,6 +210,9 @@ import { log } from 'util';
                         Edits[index].addEventListener('click', ()=>{
                         console.log("radi edit" +index);
                         modal.style.display = "block";
+                      
+                        deleteMsg.style.display = "none";
+                        EditDiv.style.display = "block";
                         let poruke = this.messages;
                         let nekiId = poruke[index].id
                         console.log(nekiId);
@@ -219,6 +249,7 @@ indexs.forEach((index, i) => {
 
 
  <style scoped>
+ @import 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css';
     .Messages {
       width: 1920px;
       height: 1100px;
@@ -282,12 +313,12 @@ indexs.forEach((index, i) => {
     }
 
     .levo-dole {
-        width: 90%;
+        width: 85%;
         height: 100%;
         
     }
     .desno-dole {
-        width: 10%;
+        width: 15%;
         height: 100%;
     }
     .levo-dole span, .plavo {
@@ -431,6 +462,55 @@ path {
   input {
     width: 70%;
   }
+
+  #deleteMsg {
+  display:block;
+  padding-top: 100px;
+  width: 100%;
+  height: 100%;
+  
+}
+#deleteMsg h3 {
+  margin-bottom: 50px;
+  font-size: 35px;
+}
+#deleteMsg button {
+  padding: 18px 40px;
+  font-size: 30px;
+  border: none;
+  border-radius: 20px;
+  /* margin-right: 100px;
+  margin-left: 50px; */
+}
+
+#Yes {
+    margin-right: 100px;
+    background-color: green
+}
+#No {
+    background-color: red
+}
+
+.edit, .delete {
+  
+  font-size: 20px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 20px;
+  background-color: #5c93ed;
+  color: white
+
+}
+.edit:hover, .delete:hover {
+    background-color: #021638;
+}
+.edit:active, .delete:active {
+    outline: none;
+}
+.edit {
+  margin-right: 20px;
+}
+
 
     /* kraj modala */
  </style>

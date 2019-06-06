@@ -256,6 +256,9 @@ export default {
                                         "body": this.poruka,
                                       })
          .then(request => console.log(request))
+         .then (()=>{
+           alert('Poruka je poslata')
+         })
           
      
     }

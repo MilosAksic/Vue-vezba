@@ -1,33 +1,13 @@
 <template>
   <div class="Users page">
-      <!-- <div id="modal-pozadina2" class="overlay">
-
-        <div id="modalEdit">
-                <span  id ="close2" class="close">&times;</span>
-                    <h2>Edit user</h2>
-                    <h3>Neki tekst..</h3>
-            
-        </div>
-
-      </div>
-
-      <div id="modal-pozadina3" class="overlay">
-
-        <div id="modalDelete">
-                <span  id ="close3" class="close">&times;</span>
-                    <h2>Delete user</h2>
-                    <h3>Neki tekst..</h3>
-            
-        </div>
-
-      </div> -->
+     
 
 
     <div id="modal-pozadina" class="overlay">
         <div id="modal">
                 <span  id ="close" class="close">&times;</span>
                     <!-- forma -->
-                         <form class="form-signin" @submit.prevent="signup">
+                         <form class="form-signin" @submit.prevent="signup" id="addUsers">
       <h2 class="form-signin-heading">Add user</h2>
       <label for="inputEmail" class="sr-only">Name</label>
       <input v-model="ime" type="text" id="inputName" class="form-control" placeholder="Name" required autofocus>
@@ -42,6 +22,27 @@
       
     </form>
                     <!-- kraj forme -->
+
+        <div class="editUser" id='editUsers'>
+            <h3>Edit user</h3>
+            <form action="" @submit.prevent="editUser(1)" id="editUsers">
+                    
+                    <h3>ID : <span id="id"> 1 </span></h3>
+                    <label for="name">Name: </label>
+                    <input  v-model="ime" type="text" placeholder="Name" name="name">
+                    <br>
+                    <label for="email">Email: </label>
+                    <input  v-model="email" type="email" placeholder="Email" name="email">
+                    
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Edit User</button>
+                </form>
+        </div>
+
+        <div class="deleteUsers" id="DeleteUsers">
+          <h3>Are you sure you want <br>to delete user with ID <span id="id2">1</span> </h3>
+          <button id="Yes">Yes</button>
+          <button id="No">No</button>
+        </div>
             
         </div>
 
@@ -53,7 +54,7 @@
   <!-- kraj modala -->
     
     <img src="../assets/DEMO.svg" alt="Demo">
-    <button v-on:click="deleteUser(57)">Delete user 52</button>
+    
     <div class="desno">
          <!--  -->
         <router-link to="/Messages" class="message-nav">Messages</router-link>
@@ -224,13 +225,15 @@ export default {
     .then (()=>{
         // let korisnici = this.users;
         // console.log(korisnici);
-        
+        const modal = document.getElementById('modal-pozadina');
+        const span = document.getElementById("close");
         const buttons = document.querySelectorAll('.dropbtn')
         const dropdowns = document.querySelectorAll('.dropdown-content')
         const Edits = document.querySelectorAll('.edit')
         const Deletes = document.querySelectorAll('.delete')
-        
-
+        const formaAddUser = document.getElementById("addUsers");
+        const editUsers = document.getElementById("editUsers");
+        const DeleteUsers = document.getElementById("DeleteUsers");
 
           
         // Close the dropdown if the user clicks outside of it
@@ -245,7 +248,16 @@ export default {
           
           Edits[index].addEventListener('click', ()=>{
             console.log("radi edit"  + index);
-            console.log(korisnici[index]);
+            // console.log(korisnici[index]);
+            modal.style.display = "block";
+            formaAddUser.style.display = "none";
+            editUsers.style.display = "block";
+            DeleteUsers.style.display = "none";
+
+            let korisnici = this.users;
+            let nekiId = korisnici[index].id
+            console.log(nekiId);
+            this.specificUser(nekiId)
           })
   
 }           
@@ -254,13 +266,27 @@ export default {
           
           Deletes[index].addEventListener('click', ()=>{
             console.log("radi delete" +index);
+            modal.style.display = "block";
+            editUsers.style.display = "none";
+            DeleteUsers.style.display = "block";
+            formaAddUser.style.display = "none";
+            //ovaj deo gore u yes
             let korisnici = this.users;
             let nekiId = korisnici[index].id
             console.log(korisnici[index]);
-            
+             // this.deleteUser(nekiId);
+            document.getElementById ('Yes').addEventListener('click', async ()=> {
+               await this.deleteUser(nekiId);
+               modal.style.display = "none";
+            })
+
+            document.getElementById ('No').addEventListener ('click' , ()=> {
+                modal.style.display = "none";
+            })
+             // do ovde
             console.log(nekiId);
             
-            this.deleteUser(nekiId);
+            // this.deleteUser(nekiId);
           })
   
 }           
@@ -306,11 +332,18 @@ indexs.forEach((index, i) => {
 })
 
     
-var modal = document.getElementById('modal-pozadina');
-var span = document.getElementById("close");
+const modal = document.getElementById('modal-pozadina');
+const span = document.getElementById("close");
+const formaAddUser = document.getElementById("addUsers");
+const editUsers = document.getElementById("editUsers");
+const deleteUser = document.getElementById("DeleteUsers");
 
 document.getElementById("uploadButton").addEventListener('click', ()=>{
     modal.style.display = "block";
+    editUsers.style.display = "none";
+    deleteUser.style.display = "none";
+    formaAddUser.style.display = "block";
+
 })
 
 
@@ -375,7 +408,28 @@ window.onclick = function(event) {
         signupFailed () {
           this.error = 'Sign Up failed!'
           //  delete localStorage.token
-}
+}, 
+        specificUser : function (msgID) {
+            this.$http.get (`/users/${msgID}`, {Authorization: localStorage.token})
+            .then((response) => {
+                console.log(response.data.data);
+                document.getElementsByName('name')[0].value = response.data.data.name
+                document.getElementsByName('email')[0].value = response.data.data.email
+                document.getElementById('id').innerHTML = response.data.data.id
+                
+            })
+        },
+
+        editUser : function (msgID) {
+             this.$http.put (`/users/${msgID}`, {Authorization: localStorage.token}, 
+                                                    {
+                                                      "name":this.ime,
+                                                      "email": this.email,
+                                                      
+                                                    })
+        }
+
+
   }
 }
 
@@ -664,11 +718,13 @@ p {
   background-color: #3498DB;
   color: white;
   padding: 16px;
-  font-size: 16px;
+  font-size: 20px;
   border: none;
   cursor: pointer;
   width:40px;
   height: 40px;
+  line-height: 0px;
+  
 }
 
 .dropbtn:hover, .dropbtn:focus {
@@ -692,20 +748,26 @@ p {
 
 .dropdown-content button {
   color: black;
-  padding: 12px 16px;
+  width: 100%;
+  font-size: 20px;
+  padding: 6px 10px;
   text-decoration: none;
   display: block;
+  border: none;
 }
 
-.dropdown button:hover {background-color: #ddd;}
+.dropdown button:hover {
+  background-color: #4cce18;
+  color :white;
+
+  }
 
 .show {display: block;}
 
 .message-nav {
       position: absolute;
       top: -70px;
-      right: 250px;
-     
+      right: 250px;   
       color:white;
       background-color: #1FE7B6;
       border: none;
@@ -747,6 +809,7 @@ p {
     padding: 20px;
     border: 3px solid #888;
     border-radius: 20px;
+    text-align: center;
 }
 
 .close {
@@ -765,15 +828,14 @@ p {
 
 /* kraj modala */
 
-
 /* forma */
-
 
 #inputName ,#inputEmail {
   width: 100%;
    margin-bottom: 10px;
+   text-align: center;
 }
-#inputEmail, #inputPassword,#repeatPassword  {
+#inputEmail, #inputPassword,#repeatPassword,#inputName   {
   margin-bottom: 10px;
   border-radius : 54px;
   /* border : 1px solid gray; */
@@ -789,8 +851,26 @@ p {
 
 .form-signin {
   max-width: 330px;
-  padding: 10% 15px;
+  padding: 25px 15px;
   margin: 0 auto;
+  display: none;
+}
+.editUser {
+  width: 95%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+.editUser button {
+  width: 50%;
+  margin: 0 auto;
+}
+.editUser input {
+  margin: 20px;
+  width: 300px;
+  height: 50px;
 }
 .form-signin .form-signin-heading,
 .form-signin .checkbox {
@@ -819,6 +899,40 @@ p {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+#addUsers {
+  text-align: center;
+}
+#DeleteUsers {
+  display:block;
+  padding-top: 100px;
+  width: 100%;
+  height: 100%;
+  
+}
+#DeleteUsers h3 {
+  margin-bottom: 50px;
+  font-size: 35px;
+}
+#DeleteUsers button {
+  padding: 18px 40px;
+  font-size: 30px;
+  border: none;
+  border-radius: 20px;
+  /* margin-right: 100px;
+  margin-left: 50px; */
+}
+
+#Yes {
+    margin-right: 100px;
+    background-color: green
+}
+#No {
+    background-color: red
+}
+#id2 {
+  color: red;
 }
 /* kraj forme */
 </style>
