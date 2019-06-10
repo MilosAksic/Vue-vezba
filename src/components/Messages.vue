@@ -5,7 +5,7 @@
         <div id="modal">
                 <span  id ="close" class="close">&times;</span>
                     <!-- forma -->
-              <form action="" @submit.prevent="postMsg(17)" id="EditDiv">
+              <form  @submit.prevent="postMsg(17)" id="EditDiv">
                     <h3>Edit Msg</h3>
                     <!-- <h3>ID : <span id="id"></span></h3> -->
                     <label for="name">Name: </label>
@@ -63,28 +63,13 @@
 
                 <div class="containernovi">
                 <span>
-                    <div class="index">
-                      <span v-on:click="poruka(1)" >1 </span></div>
-                    <div class="index">
-                      <span v-on:click="poruka(2)">2</span></div>
-                    <div class="index">
-                      <span v-on:click="poruka(3)">3</span>
-                    </div>
-                    <div class="index">
-                      <span v-on:click="poruka(4)">4</span>
-                    </div>
-                    <div class="index">
-                      <span v-on:click="poruka(5)">5</span>
-                    </div>
-                    <div class="index">
-                      <span v-on:click="poruka(6)">6</span>
+                    <div class="index" v-for="i in lastPage" :key=i>
+                      <span v-on:click="poruka(i)" >{{i}} </span>
                     </div>
                     <!-- <div class="index">
-                      <span >7</span>
-                    </div>
-                    <div class="index">
-                      <span >8</span>
-                    </div> -->
+                      <span v-on:click="poruka(2)">2</span>
+                      </div>
+                     -->
                    
                 </span>   
                 
@@ -116,7 +101,8 @@ import { log } from 'util';
             messages: [],
             ime: "",
             email: "",
-            porukaneka: ""
+            porukaneka: "",
+            lastPage:''
         }
      },
      methods:{
@@ -143,12 +129,14 @@ import { log } from 'util';
             })
         },
         postMsg : function (msgID) {
-             this.$http.put (`/messages/${msgID}`, {Authorization: localStorage.token}, 
-                                                    {
+             this.$http.put (`/messages/${msgID}`,{Authorization:localStorage.token},
+                                                         {
                                                       "name":this.ime,
                                                       "email": this.email,
                                                       "body": this.porukaneka
-                                                    })
+                                                    }               
+                                                    
+                                                    )
         }
      },
      mounted(){
@@ -156,7 +144,9 @@ import { log } from 'util';
              .get(`https://proxy-requests.herokuapp.com/http://comtrade.sytes.net/api/messages?page=1`)
              .then( (response) => {
                  this.messages = response.data.data.data;
-                 console.log(response.data.data.data);
+                 console.log(response.data.data);
+                 this.lastPage = response.data.data.last_page
+
                  
 
              })
@@ -168,7 +158,25 @@ import { log } from 'util';
 
                    const deleteMsg = document.getElementById("deleteMsg");
                    const EditDiv = document.getElementById("EditDiv");
-                  
+
+                   //paginacija
+                   const c = document.querySelector('.containernovi')
+                  const indexs = Array.from(document.querySelectorAll('.index'))
+                  let cur = -1
+                  indexs.forEach((index, i) => {
+                    index.addEventListener('click', () => {
+                      // clear
+                      
+                      c.className = 'containernovi'
+                      void c.offsetWidth; // Reflow
+                      c.classList.add('open')
+                      c.classList.add(`i${i + 1}`)
+                      if (cur > i) {
+                        c.classList.add('flip')
+                      }
+                      cur = i
+                    })
+                  })
                   span.addEventListener('click', ()=> {
                         modal.style.display = "none";
                   });
@@ -224,23 +232,7 @@ import { log } from 'util';
                 } 
                
              });
-         const c = document.querySelector('.containernovi')
-const indexs = Array.from(document.querySelectorAll('.index'))
-let cur = -1
-indexs.forEach((index, i) => {
-  index.addEventListener('click', () => {
-    // clear
-    
-    c.className = 'containernovi'
-    void c.offsetWidth; // Reflow
-    c.classList.add('open')
-    c.classList.add(`i${i + 1}`)
-    if (cur > i) {
-      c.classList.add('flip')
-    }
-    cur = i
-  })
-})
+        
         
      }
 }

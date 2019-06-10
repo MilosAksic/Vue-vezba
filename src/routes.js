@@ -41,12 +41,32 @@ export const routes = [
     {
         path: '/Users',
         name:'Users',
-        component:Users
+        component:Users,
+
+        beforeEnter(to, from, next) {
+            if (localStorage.token) {
+              next();
+            } else {
+              next("/LogIn");
+            }
+          }
+        
+
     },
       {
         path: '/Messages',
         name:'Messages',
-        component:Messages
+        component:Messages,
+
+        beforeEnter(to, from, next) {
+            if (localStorage.token) {
+              next();
+            } else {
+              next("/LogIn");
+            }
+          }
+        
+        
      }
 
 ]

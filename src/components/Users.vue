@@ -7,7 +7,7 @@
         <div id="modal">
                 <span  id ="close" class="close">&times;</span>
                     <!-- forma -->
-                         <form class="form-signin" @submit.prevent="signup" id="addUsers">
+        <form class="form-signin" @submit.prevent="signup" id="addUsers">
       <h2 class="form-signin-heading">Add user</h2>
       <label for="inputEmail" class="sr-only">Name</label>
       <input v-model="ime" type="text" id="inputName" class="form-control" placeholder="Name" required autofocus>
@@ -131,43 +131,11 @@
 
                 <div class="containernovi">
                 <span>
-                    <div class="index">
-                      <span v-on:click="niz(1)">1 </span></div>
-                    <div class="index">
-                      <span v-on:click="niz(2)">2</span></div>
-                    <div class="index">
-                      <span v-on:click="niz(3)">3</span>
+                    <div  v-for="i in lastPage" :key=i class="index" >
+                      <span v-on:click="niz(i)">{{i}}</span>
+                      <!-- <span v-on:click='`niz({{lastPage+1}})`'>{{i}}</span> -->
                     </div>
-                    <div class="index">
-                      <span v-on:click="niz(4)">4</span>
-                    </div>
-                    <div class="index">
-                      <span v-on:click="niz(5)">5</span>
-                    </div>
-                    <div class="index">
-                      <span v-on:click="niz(6)">6</span>
-                    </div>
-                    <div class="index">
-                      <span v-on:click="niz(7)">7</span>
-                    </div>
-                    <div class="index">
-                      <span v-on:click="niz(8)">8</span>
-                    </div>
-                    <div class="index">
-                      <span v-on:click="niz(9)">9</span>
-                    </div>
-                    <div class="index">
-                      <span v-on:click="niz(10)">10</span>
-                    </div>               
-                    <div class="index">
-                      <span v-on:click="niz(11)">11</span>
-                    </div>
-                    <div class="index">
-                      <span v-on:click="niz(12)">12</span>
-                    </div>
-                    <div class="index">
-                      <span v-on:click="niz(13)">13</span>
-                    </div>
+                    
                 </span>   
                 
                 
@@ -211,7 +179,10 @@ export default {
       ime:'',
       email:'',
       password:'',
-      confirmedPassword:''
+      confirmedPassword:'',
+
+      lastPage:''
+
 
 
 
@@ -221,7 +192,13 @@ export default {
 
     axios
     .get(`https://proxy-requests.herokuapp.com/http://comtrade.sytes.net/api/users?page=1`)
-    .then(response => (this.users = response.data.data.data))
+    .then((response) =>  {
+      this.users = response.data.data.data;
+      console.log(response.data.data.last_page);
+      this.lastPage = response.data.data.last_page
+
+      // this.currentPage = 1;
+    })
     .then (()=>{
         // let korisnici = this.users;
         // console.log(korisnici);
@@ -234,8 +211,27 @@ export default {
         const formaAddUser = document.getElementById("addUsers");
         const editUsers = document.getElementById("editUsers");
         const DeleteUsers = document.getElementById("DeleteUsers");
+        //paginACIJA
+        const c = document.querySelector('.containernovi')
+        const indexs = Array.from(document.querySelectorAll('.index'))
+                let cur = -1
+                indexs.forEach((index, i) => {
+                  index.addEventListener('click', () => {
+                    // clear
+                    
+                    c.className = 'containernovi'
+                    void c.offsetWidth; // Reflow
+                    c.classList.add('open')
+                    c.classList.add(`i${i + 1}`)
+                    if (cur > i) {
+                      c.classList.add('flip')
+                    }
+                    cur = i
+                  })
+                })
 
-          
+                //PAGINACIJA
+        
         // Close the dropdown if the user clicks outside of it
         for (let index = 0; index < buttons.length; index++) {
           
@@ -312,24 +308,7 @@ window.onclick = function(event) {
     }
   }
 }
-    // paginacija
-    const c = document.querySelector('.containernovi')
-const indexs = Array.from(document.querySelectorAll('.index'))
-let cur = -1
-indexs.forEach((index, i) => {
-  index.addEventListener('click', () => {
-    // clear
-    
-    c.className = 'containernovi'
-    void c.offsetWidth; // Reflow
-    c.classList.add('open')
-    c.classList.add(`i${i + 1}`)
-    if (cur > i) {
-      c.classList.add('flip')
-    }
-    cur = i
-  })
-})
+   
 
     
 const modal = document.getElementById('modal-pozadina');
@@ -369,7 +348,11 @@ window.onclick = function(event) {
     niz: function (pageNumber) {
       axios
     .get(`https://proxy-requests.herokuapp.com/http://comtrade.sytes.net/api/users?page= ${pageNumber}` )
-    .then(response => (this.users = response.data.data.data))
+    .then((response) =>{
+      this.users = response.data.data.data;
+      console.log('radi');
+             
+    } )
     },
 
     deleteUser: function (UserNumber) {
@@ -514,6 +497,12 @@ path {
   }
   .containernovi.i13 svg {
     transform: translateX(595px);
+  }
+  .containernovi.i14 svg {
+    transform: translateX(645px);
+  }
+  .containernovi.i15 svg {
+    transform: translateX(695px);
   }
 @keyframes OpenRight {
   25% { stroke-dasharray: 100 150; }
@@ -778,6 +767,8 @@ p {
 .message-nav:hover {
       text-decoration: none;
 }
+
+/* kraj drop */
 /* modal  */
 
 .overlay{   
