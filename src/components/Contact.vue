@@ -252,16 +252,26 @@ export default {
   methods: {
       postMsg(){
       this.$http.post('/messages', { "name": this.ime,
-                                        "email":this.email, 
-                                        "body": this.poruka,
+                                     "email":this.email, 
+                                    "body": this.poruka,
                                       })
          .then(request => console.log(request))
          .then (()=>{
-           alert('Poruka je poslata')
+           this.showAlert()
          })
           
      
-    }
+    }, 
+    showAlert(){
+           
+           Swal.fire({
+
+          type: 'success',
+          title: 'Message succesfully sent',
+          showConfirmButton: false,
+          timer: 2000
+              })
+        },
   }
 }
 

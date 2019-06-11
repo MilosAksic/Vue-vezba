@@ -8,13 +8,17 @@ import BootstrapVue from 'bootstrap-vue'
 import {routes} from './routes'
 // import axios from 'axios'
 import axios from './backend/vue-axios'
+import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2/dist/sweetalert2.js'
+// import 'sweetalert2/src/sweetalert2.scss'
 // import VueAxios from 'vue-axios'
-
+// import VueSweetalert2 from 'vue-sweetalert2';
 // import VueAxios from './plugins/axios'
 
-Vue.use(VueRouter, BootstrapVue)
+Vue.use(VueRouter, BootstrapVue,Swal)
 
 // axios, VueAxios,
+
 
 const router = new VueRouter ({
   routes

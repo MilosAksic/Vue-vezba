@@ -39,7 +39,7 @@
         </div>
 
         <div class="deleteUsers" id="DeleteUsers">
-          <h3>Are you sure you want <br>to delete user with ID <span id="id2">1</span> </h3>
+          <h3>Are you sure you want <br>to delete user with ID <span id="id2">{{currrentUser}}</span> </h3>
           <button id="Yes">Yes</button>
           <button id="No">No</button>
         </div>
@@ -56,6 +56,7 @@
     <img src="../assets/DEMO.svg" alt="Demo">
     
     <div class="desno">
+      
          <!--  -->
         <router-link to="/Messages" class="message-nav">Messages</router-link>
         
@@ -101,14 +102,15 @@
                             <!-- dropdown -->
 
                                   <div class="dropdown">
-                                    <button  class="dropbtn">...</button>
-                                    <div id="myDropdown" class="dropdown-content">
-                                      
-                                      <button class="edit">Edit User</button>
-                                      <button class="delete">Delete User</button>
-                                      
-                                    </div>
-                                  </div>
+                                      <button class="dropbtn btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        ...
+                                      </button>
+                                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton dropdown-content">
+                                        <button class="dropdown-item edit" href="#">Edit</button>
+                                        <button class="dropdown-item delete" href="#">Delete</button>
+                                        
+                                      </div>
+                                </div>
 
                             <!-- end dropdown -->
                           <div class="popUp">
@@ -130,23 +132,36 @@
                 <!-- paginacija -->
 
                 <div class="containernovi">
-                <span>
-                    <div  v-for="i in lastPage" :key=i class="index" >
-                      <span v-on:click="niz(i)">{{i}}</span>
-                      <!-- <span v-on:click='`niz({{lastPage+1}})`'>{{i}}</span> -->
-                    </div>
-                    
-                </span>   
+               
+
                 
-                
-                <svg viewBox="0 0 100 100">
-                  <path
-                        d="m 7.1428558,49.999998 c -1e-7,-23.669348 19.1877962,-42.8571447 42.8571442,-42.8571446 23.669347,0 42.857144,19.1877966 42.857144,42.8571446" />
-                </svg>
-                <svg viewBox="0 0 100 100">
-                  <path
-                        d="m 7.1428558,49.999998 c -1e-7,23.669347 19.1877962,42.857144 42.8571442,42.857144 23.669347,0 42.857144,-19.187797 42.857144,-42.857144" />
-                </svg>
+            <nav>
+              <ul class="pagination">
+                <li class="page-item">
+                  <a class="page-link" href="#/Users" aria-label="Previous" v-on:click="nizManje">
+                    <span aria-hidden="true">&lt;</span>
+                    <span class="sr-only" id="previous">Previous</span>
+                  </a>
+                </li>
+                <li
+                  v-for="i in lastPage"
+                  :key="i"
+                  class="page-item"
+                  v-on:click="niz(i)"
+                  @click="activate(i)"
+                  :class="{ active : active_el == i}"
+                >
+                  <a class="page-link" href="#/Users">{{i}}</a>
+                </li>
+
+                <li class="page-item">
+                  <a class="page-link" href="#/Users" aria-label="Next" v-on:click="nizVise">
+                    <span aria-hidden="true">&gt;</span>
+                    <span class="sr-only" id="next">Next</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
               </div>
 
 
@@ -181,7 +196,17 @@ export default {
       password:'',
       confirmedPassword:'',
 
-      lastPage:''
+      lastPage:'',
+
+      currrentUser:'',
+
+      active_el: 0,
+      active_elColor: "#202646",
+      currentPage: "",
+
+      
+
+      
 
 
 
@@ -195,7 +220,10 @@ export default {
     .then((response) =>  {
       this.users = response.data.data.data;
       console.log(response.data.data.last_page);
-      this.lastPage = response.data.data.last_page
+      this.lastPage = response.data.data.last_page;
+      this.currentPage = 1;
+      console.log(this.currentPage); 
+      this.activate(this.currentPage);
 
       // this.currentPage = 1;
     })
@@ -205,7 +233,7 @@ export default {
         const modal = document.getElementById('modal-pozadina');
         const span = document.getElementById("close");
         const buttons = document.querySelectorAll('.dropbtn')
-        const dropdowns = document.querySelectorAll('.dropdown-content')
+        // const dropdowns = document.querySelectorAll('.dropdown-content')
         const Edits = document.querySelectorAll('.edit')
         const Deletes = document.querySelectorAll('.delete')
         const formaAddUser = document.getElementById("addUsers");
@@ -233,10 +261,22 @@ export default {
                 //PAGINACIJA
         
         // Close the dropdown if the user clicks outside of it
+
+
+//         window.onclick = function(event) { 
+//           for (let index = 0; index < buttons.length; index++) {
+//                 if (event.target == dropdowns) {
+//                    dropdowns[index].style.display = "none";
+//   }
+//           }
+            
+// }
+        
+
         for (let index = 0; index < buttons.length; index++) {
-          
+             
           buttons[index].addEventListener('click', ()=>{
-            dropdowns[index].classList.toggle("show");
+            // dropdowns[index].classList.toggle("show");
           })
   
 }           
@@ -269,11 +309,13 @@ export default {
             //ovaj deo gore u yes
             let korisnici = this.users;
             let nekiId = korisnici[index].id
+            this.currrentUser = nekiId;
             console.log(korisnici[index]);
              // this.deleteUser(nekiId);
             document.getElementById ('Yes').addEventListener('click', async ()=> {
                await this.deleteUser(nekiId);
                modal.style.display = "none";
+               this.showAlert2();
             })
 
             document.getElementById ('No').addEventListener ('click' , ()=> {
@@ -306,6 +348,8 @@ window.onclick = function(event) {
         openDropdown.classList.remove('show');
       }
     }
+  } else {
+    
   }
 }
    
@@ -354,6 +398,27 @@ window.onclick = function(event) {
              
     } )
     },
+    showAlert(){
+           
+           Swal.fire({
+          // position: 'top-end',
+          type: 'success',
+          title: 'User succesfully added',
+          showConfirmButton: false,
+          timer: 2000
+              })
+        },
+
+    showAlert2(){
+           
+           Swal.fire({
+          // position: 'top-end',
+          type: 'success',
+          title: 'User succesfully deleted',
+          showConfirmButton: false,
+          timer: 2000
+              })
+        },
 
     deleteUser: function (UserNumber) {
           this.$http.delete(`/users/${UserNumber}`, {Authorization: localStorage.token})
@@ -385,7 +450,8 @@ window.onclick = function(event) {
     }, 
     signupSuccessful () {
           
-         
+          document.getElementById('modal-pozadina').style.display = "none";
+          this.showAlert();
       },
 
         signupFailed () {
@@ -410,7 +476,51 @@ window.onclick = function(event) {
                                                       "email": this.email,
                                                       
                                                     })
-        }
+        }, 
+        nizManje: function() {
+      if (this.currentPage === 1) {
+        return;
+      }
+      this.currentPage = this.currentPage - 1;
+
+      axios
+        .get(
+          `https://proxy-requests.herokuapp.com/http://comtrade.sytes.net/api/users?page= ${
+            this.currentPage
+          }`
+        )
+        .then(response => {
+          this.users = response.data.data.data;
+          this.activate(this.currentPage);
+        });
+    },
+
+    nizVise: function() {
+      if (this.currentPage === this.lastPage) {
+        return;
+      }
+      this.currentPage = this.currentPage + 1;
+
+      axios
+        .get(
+          `https://proxy-requests.herokuapp.com/http://comtrade.sytes.net/api/users?page= ${
+            this.currentPage
+          }`
+        )
+        .then(response => {
+          this.users = response.data.data.data;
+          this.activate(this.currentPage);
+        });
+    },
+
+
+    activate: function(el) {
+      this.active_el = el;
+    },
+
+    onClick() {
+      this.$emit("loadPage", this.pageNumber);
+    }
 
 
   }
@@ -426,93 +536,10 @@ window.onclick = function(event) {
   display: inline-block;
   position: relative;
 }
-.index {
 
-  display: inline;
-  margin-right: 30px;
-  padding: 5px;
-  user-select: none;
-  -moz-user-select: none;
-}
-.index span:hover {
-    cursor: pointer;
-}
-.index:last-child {
-  margin: 0;
-}
-svg {
-  left: -13px;
-  position: absolute;
-  top: -11px;
-  transition: transform 500ms;
-  width: 46px;
-}
-path {
-  fill:none;
-  stroke:#2FB468;
-  stroke-dasharray: 150 150;
-  stroke-width:15;
-}
-.containernovi.open:not(.flip) path {
-  animation: OpenRight 500ms;
-}
-.containernovi.open.flip path {
-  animation: OpenLeft 500ms;
-}
-.containernovi.i1 svg {
-  transform: translateX(0);
-}
-.containernovi.i2 svg {
-  transform: translateX(50px);
-}
-.containernovi.i3 svg {
-  transform: translateX(102px);
-}
-.containernovi.i4 svg {
-  transform: translateX(148px);
-}
-.containernovi.i5 svg {
-  transform: translateX(196px);
-}
-.containernovi.i6 svg {
-    transform: translateX(244px);
-  }
-  .containernovi.i7 svg {
-    transform: translateX(290px);
-  }
-  .containernovi.i8 svg {
-    transform: translateX(340px);
-  }
-  .containernovi.i9 svg {
-    transform: translateX(388px);
-  }
-  .containernovi.i10 svg {
-    transform: translateX(443px);
-  }
-  .containernovi.i11 svg {
-    transform: translateX(492px);
-  }
-  .containernovi.i12 svg {
-    transform: translateX(542px);
-  }
-  .containernovi.i13 svg {
-    transform: translateX(595px);
-  }
-  .containernovi.i14 svg {
-    transform: translateX(645px);
-  }
-  .containernovi.i15 svg {
-    transform: translateX(695px);
-  }
-@keyframes OpenRight {
-  25% { stroke-dasharray: 100 150; }
-  60% { stroke-dasharray: 100 150; }
-  100% { stroke-dasharray: 150 150; }
-}
-@keyframes OpenLeft {
-  25% { stroke-dashoffset: -50px; }
-  60% { stroke-dashoffset: -50px; }
-  100% { stroke-dashoffset: 0; }
+.active a {
+  background: gray !important;
+  color: #ffffff;
 }
 /* kraj paginacije */
     .Users {
@@ -700,9 +727,18 @@ p {
   display:none;
 
 }
+.pagnation a {
+  padding: 30px;
+
+
+}
+/* .dropbtn {
+  width: 40px;
+  height: 40px;
+} */
 
 /* dropdown */
-
+/* 
 .dropbtn {
   background-color: #3498DB;
   color: white;
@@ -713,6 +749,7 @@ p {
   width:40px;
   height: 40px;
   line-height: 0px;
+  margin-top: 15px !important;
   
 }
 
@@ -752,7 +789,7 @@ p {
   }
 
 .show {display: block;}
-
+*/
 .message-nav {
       position: absolute;
       top: -70px;
@@ -766,9 +803,11 @@ p {
     }
 .message-nav:hover {
       text-decoration: none;
-}
+} 
 
 /* kraj drop */
+
+.show {display: block;}
 /* modal  */
 
 .overlay{   
@@ -789,6 +828,9 @@ p {
     width: 400px;
     height: 200px;
     margin-top: 200px;
+}
+.dropdown-toggle:after {
+  border: none;
 }
 
 #modal , #modalDelete, #modalEdit {

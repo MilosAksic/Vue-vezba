@@ -59,12 +59,12 @@ export default {
            
          })
          
-          .catch(() => this.loginFailed())
+          .catch((request) => this.loginFailed(request))
       
     },
     loginSuccessful (req) { 
           if (!req.data.access_token) {
-                this.loginFailed()
+                this.loginFailed(req)
                  return
                  }
 
@@ -76,7 +76,9 @@ export default {
          this.$router.replace(this.$route.query.redirect || '/Users')
       },
 
-        loginFailed () {
+        loginFailed (req) {
+          console.log(req);
+          
           this.error = 'Login failed!'
           delete localStorage.token
 }

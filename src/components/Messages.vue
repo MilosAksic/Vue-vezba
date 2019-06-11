@@ -62,26 +62,34 @@
         <div class="paginacija">
 
                 <div class="containernovi">
-                <span>
-                    <div class="index" v-for="i in lastPage" :key=i>
-                      <span v-on:click="poruka(i)" >{{i}} </span>
-                    </div>
-                    <!-- <div class="index">
-                      <span v-on:click="poruka(2)">2</span>
-                      </div>
-                     -->
-                   
-                </span>   
                 
-                
-                <svg viewBox="0 0 100 100">
-                  <path
-                        d="m 7.1428558,49.999998 c -1e-7,-23.669348 19.1877962,-42.8571447 42.8571442,-42.8571446 23.669347,0 42.857144,19.1877966 42.857144,42.8571446" />
-                </svg>
-                <svg viewBox="0 0 100 100">
-                  <path
-                        d="m 7.1428558,49.999998 c -1e-7,23.669347 19.1877962,42.857144 42.8571442,42.857144 23.669347,0 42.857144,-19.187797 42.857144,-42.857144" />
-                </svg>
+                <nav>
+              <ul class="pagination">
+                <li class="page-item">
+                  <a class="page-link" href="#/Messages" aria-label="Previous" v-on:click="nizManje">
+                    <span aria-hidden="true">&lt;</span>
+                    <span class="sr-only" id="previous">Previous</span>
+                  </a>
+                </li>
+                <li
+                  v-for="i in lastPage"
+                  :key="i"
+                  class="page-item"
+                  v-on:click="poruka(i)"
+                  @click="activate(i)"
+                  :class="{ active : active_el == i}"
+                >
+                  <a class="page-link" href="#/Messages">{{i}}</a>
+                </li>
+
+                <li class="page-item">
+                  <a class="page-link" href="#/Messages" aria-label="Next" v-on:click="nizVise">
+                    <span aria-hidden="true">&gt;</span>
+                    <span class="sr-only" id="next">Next</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
               </div>
 
         </div>  
@@ -102,7 +110,12 @@ import { log } from 'util';
             ime: "",
             email: "",
             porukaneka: "",
-            lastPage:''
+            lastPage:'', 
+
+            active_el: 0,
+          active_elColor: "#202646",
+          currentPage: "",
+          lastPage: ""
         }
      },
      methods:{
@@ -111,6 +124,17 @@ import { log } from 'util';
                   .get(`https://proxy-requests.herokuapp.com/http://comtrade.sytes.net/api/messages?page=${pageNumber}` )
                   .then(response => (this.messages = response.data.data.data))
         },
+        showAlert(){
+           
+           Swal.fire({
+
+          type: 'success',
+          title: 'Message succesfully deleted',
+          showConfirmButton: false,
+          timer: 2000
+              })
+        },
+
 
          deleteMessage: function (msgID) {
           this.$http.delete(`/messages/${msgID}`, {Authorization: localStorage.token})
@@ -137,7 +161,54 @@ import { log } from 'util';
                                                     }               
                                                     
                                                     )
-        }
+        }, 
+
+         nizManje: function() {
+      if (this.currentPage === 1) {
+        return;
+      }
+      this.currentPage = this.currentPage - 1;
+
+      axios
+        .get(
+          `https://proxy-requests.herokuapp.com/http://comtrade.sytes.net/api/messages?page= ${
+            this.currentPage
+          }`
+        )
+        .then(response => {
+          this.messages = response.data.data.data;
+          this.activate(this.currentPage);
+        });
+    },
+
+    nizVise: function() {
+      if (this.currentPage === this.lastPage) {
+        return;
+      }
+      this.currentPage = this.currentPage + 1;
+
+      axios
+        .get(
+          `https://proxy-requests.herokuapp.com/http://comtrade.sytes.net/api/messages?page= ${
+            this.currentPage
+          }`
+        )
+        .then(response => {
+          this.messages = response.data.data.data;
+          this.activate(this.currentPage);
+        });
+    },
+
+
+    activate: function(el) {
+      this.active_el = el;
+    },
+
+    onClick() {
+      this.$emit("loadPage", this.pageNumber);
+    }
+
+
      },
      mounted(){
          axios
@@ -146,7 +217,9 @@ import { log } from 'util';
                  this.messages = response.data.data.data;
                  console.log(response.data.data);
                  this.lastPage = response.data.data.last_page
-
+                 this.currentPage = 1;
+                 console.log(this.currentPage);
+                 this.activate(this.currentPage);
                  
 
              })
@@ -200,7 +273,7 @@ import { log } from 'util';
                         document.getElementById ('Yes').addEventListener('click', async ()=> {
                            await this.deleteMessage(nekiId);
                             modal.style.display = "none";
-                            alert('Message Deleted')
+                            this.showAlert();
                           
                             
             })
@@ -332,75 +405,10 @@ import { log } from 'util';
   display: inline-block;
   position: relative;
 }
-.index {
-  /* cursor: pointer; */
-  font-size:20px;
-  font-weight: 700;
-  color: white;
-  display: inline;
-  margin-right: 30px;
-  padding: 5px;
-  user-select: none;
-  -moz-user-select: none;
-}
-.index span:hover {
-    cursor: pointer;
-}
-.index:last-child {
-  margin: 0;
-}
-svg {
-  left: -13px;
-  position: absolute;
-  top: -11px;
-  transition: transform 500ms;
-  width: 46px;
-}
-path {
-  fill:none;
-  stroke:#2FB468;
-  stroke-dasharray: 150 150;
-  stroke-width:15;
-}
-.containernovi.open:not(.flip) path {
-  animation: OpenRight 500ms;
-}
-.containernovi.open.flip path {
-  animation: OpenLeft 500ms;
-}
-.containernovi.i1 svg {
-  transform: translateX(0);
-}
-.containernovi.i2 svg {
-  transform: translateX(50px);
-}
-.containernovi.i3 svg {
-  transform: translateX(102px);
-}
-.containernovi.i4 svg {
-  transform: translateX(154px);
-}
-.containernovi.i5 svg {
-  transform: translateX(206px);
-}
-.containernovi.i6 svg {
-    transform: translateX(260px);
-  }
-/* .containernovi.i7 svg {
-    transform: translateX(310px);
-  }
-.containernovi.i8 svg {
-    transform: translateX(360px);
-  } */
-@keyframes OpenRight {
-  25% { stroke-dasharray: 100 150; }
-  60% { stroke-dasharray: 100 150; }
-  100% { stroke-dasharray: 150 150; }
-}
-@keyframes OpenLeft {
-  25% { stroke-dashoffset: -50px; }
-  60% { stroke-dashoffset: -50px; }
-  100% { stroke-dashoffset: 0; }
+
+.active a {
+  background: #13253b !important;
+  color: #ffffff;
 }
     /* kraj paginacije */
 
