@@ -10,7 +10,10 @@
 with instructions on how to reset your password.</p>
         </div>
         <div class="dole">
-        <input type="email" name="email" id="mail" placeholder="Enter your e-mail">
+        <input  type="email"
+                name="email" 
+                id="mail"
+                placeholder="Enter your e-mail">
         <router-link  to="/Password2" class="nav-item">SEND</router-link>
         </div>
    </div>
@@ -25,7 +28,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .Password {
       width: 100%;

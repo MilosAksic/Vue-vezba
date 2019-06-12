@@ -106,12 +106,14 @@
         <div class="unutra">
               <div class="top">
                     <div class="inside">
+
+                            <div class="kartice recepiant"  >
+                            <p>#ID</p> 
+                          </div>
                           <div class="kartice listName"  > 
                             <p>List name</p>
                           </div>
-                          <div class="kartice recepiant"  >
-                            <p>#Recepiant</p> 
-                          </div>
+                          
                           <div class="kartice uploadedBy"  >
                             <p>Email</p>
                           </div>
@@ -123,13 +125,14 @@
               <div class="bottom">
                     <div class="Drzac-kartica" >
                      <div  v-for="(user, index) in users" :key="`user-${index}`" class="inside-kartica">
-                        
+
+                            <div class="kartice recepiant"  >
+                            <p>{{user.id}}</p>
+                          </div>
                           <div class="kartice listName"  > 
                             <p>{{user.name}}</p>
                           </div>
-                          <div class="kartice recepiant"  >
-                            <p>{{user.id}}</p>
-                          </div>
+                          
                           <div class="kartice uploadedBy"  >
                             <p>{{user.email}}</p>
                           </div>
@@ -243,13 +246,6 @@ export default {
       active_elColor: "#202646",
       currentPage: "",
 
-      
-
-      
-
-
-
-
     }
   },
   mounted(){
@@ -264,7 +260,6 @@ export default {
       console.log(this.currentPage); 
       this.activate(this.currentPage);
 
-      // this.currentPage = 1;
     })
     .then (()=>{
        
@@ -295,8 +290,6 @@ export default {
 
                 //PAGINACIJA
         
-        
-
         for (let index = 0; index < buttons.length; index++) {
              
           buttons[index].addEventListener('click', ()=>{
@@ -306,7 +299,7 @@ export default {
 }           
  for (let index = 0; index < Edits.length; index++) {
           
-          Edits[index].addEventListener('click', ()=>{
+            Edits[index].addEventListener('click', ()=>{
             modal.style.display = "block";
             formaAddUser.style.display = "none";
             editUsers.style.display = "block";
@@ -319,20 +312,17 @@ export default {
   
 }           
 
- for (let index = 0; index < Deletes.length; index++) {
-          
+ for (let index = 0; index < Deletes.length; index++) {        
             Deletes[index].addEventListener('click', ()=>{
             console.log("radi delete" +index);
             modal.style.display = "block";
             editUsers.style.display = "none";
             DeleteUsers.style.display = "block";
             formaAddUser.style.display = "none";
-            //ovaj deo gore u yes
             let korisnici = this.users;
             let nekiId = korisnici[index].id
             this.currrentUser = nekiId;
             console.log(korisnici[index]);
-             // this.deleteUser(nekiId);
             document.getElementById ('Yes').addEventListener('click', async ()=> {
                await this.deleteUser(nekiId);
                modal.style.display = "none";
@@ -355,11 +345,6 @@ export default {
 
     })
 
-    //dropdown
-
-//     function myFunction() {
-//   document.getElementById("myDropdown").classList.toggle("show");
-// }
 
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
@@ -376,8 +361,6 @@ window.onclick = function(event) {
   }
 }
    
-
-    
 const modal = document.getElementById('modal-pozadina');
 const span = document.getElementById("close");
 const formaAddUser = document.getElementById("addUsers");
@@ -393,7 +376,6 @@ document.getElementById("uploadButton").addEventListener('click', ()=>{
 })
 
 
-
 span.onclick = function() {
   modal.style.display = "none";
 }
@@ -406,9 +388,6 @@ window.onclick = function(event) {
  
 }
 
-      
-
-  
 
   },
   methods: {
@@ -426,10 +405,8 @@ window.onclick = function(event) {
             delete localStorage.token;
             this.$router.replace(this.$route.query.redirect || '/Login')
     },
-    showAlert(){
-           
-           Swal.fire({
-          // position: 'top-end',
+    showAlert(){        
+       Swal.fire({
           type: 'success',
           title: 'User succesfully added',
           showConfirmButton: false,
@@ -439,7 +416,7 @@ window.onclick = function(event) {
 
     showAlert2(){
            
-           Swal.fire({ 
+      Swal.fire({ 
           type: 'success',
           title: `User  ${this.currrentUser} succesfully deleted`,
           showConfirmButton: false,
@@ -448,7 +425,7 @@ window.onclick = function(event) {
         },
       showAlert3(){
            
-           Swal.fire({
+        Swal.fire({
           type: 'success',
           title: `User ${this.currrentUser} succesfully edited`,
           showConfirmButton: false,
@@ -467,13 +444,10 @@ window.onclick = function(event) {
 
     },
     changeActive: function(){
-      // const linkovi = document.querySelectorAll('.pagnation .page-link') 
-      
-    
+ 
       this.classList.toggle("active");
 
     }, 
-
 
     signup (){
       this.$http.post('/auth/signup', { "name": this.ime,
@@ -710,14 +684,14 @@ p {
 }
 
 .listName {
-  width: 440px;
+  width: 430px;
 }
 .recepiant {
-    width: 263px;
+    width: 253px;
 
 }
 .uploadedBy {
-    width: 323px;
+    width: 303px;
 
 }
 .uploadedDate {

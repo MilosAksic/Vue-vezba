@@ -68,21 +68,5 @@ html {
   width: inherit;
 }
 
-/* @media only screen and (max-width: 360px) {
-    #app{
-      width: 360px;
-    }
-}
-@media only screen and (max-width: 768px) {
-    #app{
-      width: 720px;
-    }
-}
-
-@media only screen and (max-width: 1024px) {
-    #app{
-      width: 1024px;
-    }
-} */
 
 </style>

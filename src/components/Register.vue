@@ -3,23 +3,42 @@
 
       <div class="unutra">
           <img src="../assets/DEMO.svg" alt="Demo" class="logo">
-          <!-- <input type="text" placeholder="Name">
-          <input type="text" placeholder="Organization">
-          <input type="email" placeholder="E-Mail Adress">
-          <input type="text" placeholder="Phone Number" id="phone">  
-          <router-link  to="/RegistrationSucces" class="nav-item">SUBMIT</router-link> -->
       <div class="login-wrapper border border-light">
     <form class="form-signin" @submit.prevent="signup">
       <h2 class="form-signin-heading">Please Sign Up</h2>
       <label for="inputEmail" class="sr-only">Name</label>
-      <input v-model="ime" type="text" id="inputName" class="form-control" placeholder="Name" required autofocus>
-      <label for="inputEmail" class="sr-only">Email address</label>
-      <input v-model="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input v-model="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+      <input  v-model="ime" 
+              type="text"
+              id="inputName"
+              class="form-control" 
+              placeholder="Name" 
+              required 
+              autofocus>
+      <label for="inputEmail"
+       class="sr-only">Email address</label>
+      <input v-model="email"
+              type="email"
+              id="inputEmail"
+              class="form-control"
+              placeholder="Email address"
+              required
+              autofocus>
+      <label for="inputPassword" 
+            class="sr-only">Password</label>
+      <input v-model="password"
+            type="password"
+            id="inputPassword" 
+            class="form-control"
+            placeholder="Password"
+            required>
 
       <label for="inputPassword" class="sr-only"> Repeat Password</label>
-      <input  v-model="confirmedPassword" type="password" id="repeatPassword" class="form-control" placeholder="Repeat password" required>
+      <input  v-model="confirmedPassword" 
+              type="password" 
+              id="repeatPassword"
+              class="form-control" 
+              placeholder="Repeat password"
+              required>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
       
     </form>
@@ -60,7 +79,7 @@ export default {
 
         signupFailed () {
           this.error = 'Sign Up failed!'
-          //  delete localStorage.token
+          
 }
   }
   

@@ -8,22 +8,32 @@
     <form class="form-signin" @submit.prevent="login">
       <h2 class="form-signin-heading">Please sign in</h2>
       <div class="alert alert-danger" v-if="error">{{ error }}</div>
-      <label for="inputEmail" class="sr-only">Email address</label>
-      <input v-model="email" type="email"
-        onfocus="this.placeholder = ''"
-        onblur="this.placeholder = 'Email address'"
-       id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input v-model="password"
-          onfocus="this.placeholder = ''"
-        onblur="this.placeholder = 'Password'"
-         type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      <label for="inputEmail" 
+              class="sr-only">Email address</label>
+        <input v-model="email"
+              type="email"
+              onfocus="this.placeholder = ''"
+              onblur="this.placeholder = 'Email address'"
+              id="inputEmail" 
+              class="form-control" 
+              placeholder="Email address" 
+              required autofocus>
+      <label for="inputPassword"
+             class="sr-only">Password</label>
+      <input  v-model="password"
+              onfocus="this.placeholder = ''"
+              onblur="this.placeholder = 'Password'"
+              type="password" 
+              id="inputPassword" 
+              class="form-control" 
+              placeholder="Password" required>
+      <button class="btn btn-lg btn-primary btn-block" 
+              type="submit">Sign in</button>
       
         
     </form>
 
-      <!-- <router-link  to="/Users" id="nav-item2" >SIGN IN</router-link><br> -->
+
           
   </div>
 
@@ -87,7 +97,7 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
     .LogIn {
       width: 100%;

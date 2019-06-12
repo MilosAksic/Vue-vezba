@@ -9,14 +9,27 @@
                     <h3 id="porukag">Edit Message number {{currentUser}}</h3>
                     <!-- <h3>ID : <span id="id"></span></h3> -->
                     <h3>Name</h3>
-                    <input  v-model="ime" type="text" placeholder="Name" name="name">
+                    <input  v-model="ime"
+                            type="text" 
+                            placeholder="Name"
+                            name="name">
                     <br>
                     <h3>Email</h3>
-                    <input  v-model="email" type="email" placeholder="Email" name="email">
+                    <input  v-model="email" 
+                            type="email" 
+                            placeholder="Email"
+                            name="email">
                     <br>
                     <h3>Message</h3>
-                    <textarea  v-model="body" name="body" id="textArea" cols="30" rows="6" placeholder="Your Massage" ></textarea>
-                    <button class="btn btn-lg btn-primary btn-block edit-dugme" type="submit">Edit message</button>
+                    <textarea   v-model="body"
+                                name="body" 
+                                id="textArea" 
+                                cols="30" 
+                                rows="6" 
+                                placeholder="Your Massage" >
+                    </textarea>
+                    <button class="btn btn-lg btn-primary btn-block edit-dugme"
+                            type="submit">Edit message</button>
                 </form>
                     <!-- kraj forme -->
 
@@ -32,13 +45,16 @@
         
     </div>
         <h1>Messages</h1>
-         <!-- <transition name="router-anim" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut"> -->
+        
         <div class="poruke">
             
             <div class="unutra" v-for="(message, index) in messages" :key="`message-${index}`">
                 <div class="gore">
-                    <div class="levo"> <h2> <span class="id"> {{message.id}}</span>  <span class="plavo"> Name </span> : {{message.name}} &nbsp; &nbsp; &nbsp;   <span class="plavo"> Email: </span> : {{message.email}} </h2> </div>  
-                    <div class="desno"> <h2>{{message.created_at}}</h2></div>
+                    <div class="levo"> 
+                      <h2> <span class="id"> {{message.id}}</span>  <span class="plavo"> Name </span> : {{message.name}} &nbsp; &nbsp; &nbsp;   <span class="plavo"> Email: </span> : {{message.email}} </h2> </div>  
+                    <div class="desno">
+                       <h2>{{message.created_at}}</h2>
+                    </div>
                 </div>
 
                 <div class="dole">
@@ -66,9 +82,13 @@
                 <nav>
               <ul class="pagination">
                 <li class="page-item">
-                  <a class="page-link" href="#/Messages" aria-label="Previous" v-on:click="nizManje">
+                  <a  class="page-link" 
+                      href="#/Messages" 
+                      aria-label="Previous"
+                      v-on:click="nizManje">
                     <span aria-hidden="true">&lt;</span>
-                    <span class="sr-only" id="previous">Previous</span>
+                    <span class="sr-only"
+                          id="previous">Previous</span>
                   </a>
                 </li>
                 <li
@@ -83,7 +103,10 @@
                 </li>
 
                 <li class="page-item">
-                  <a class="page-link" href="#/Messages" aria-label="Next" v-on:click="nizVise">
+                  <a  class="page-link" 
+                      href="#/Messages"
+                      aria-label="Next"
+                      v-on:click="nizVise">
                     <span aria-hidden="true">&gt;</span>
                     <span class="sr-only" id="next">Next</span>
                   </a>

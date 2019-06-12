@@ -122,20 +122,6 @@ export default {
       
     }
     
-    /* #carousel-example-multi {
-        width: 100%;
-        height: 100%;
-        
-    }
-    .row img {
-      width: 366px;
-      height: 637px;
-    }
-    #innerCaroseul {
-      display: flex;
-      justify-content: space-between;
-      flex-direction: column;
-    } */
     #container-div{
       width: 100%;
       height: 100%;
