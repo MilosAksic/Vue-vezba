@@ -199,6 +199,7 @@ export default {
   border-top-right-radius: 0;
 }
 
+
 /* kraj log in */
     
 </style>

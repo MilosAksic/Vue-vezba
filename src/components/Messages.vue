@@ -5,18 +5,18 @@
         <div id="modal">
                 <span  id ="close" class="close">&times;</span>
                     <!-- forma -->
-              <form  @submit.prevent="postMsg(17)" id="EditDiv">
-                    <h3>Edit Msg</h3>
+              <form  @submit.prevent="EditMsg(currentUser)" id="EditDiv">
+                    <h3 id="porukag">Edit Message number {{currentUser}}</h3>
                     <!-- <h3>ID : <span id="id"></span></h3> -->
-                    <label for="name">Name: </label>
+                    <h3>Name</h3>
                     <input  v-model="ime" type="text" placeholder="Name" name="name">
                     <br>
-                    <label for="email">Email: </label>
+                    <h3>Email</h3>
                     <input  v-model="email" type="email" placeholder="Email" name="email">
                     <br>
-                    <label for="Poruka">Poruka: </label>
-                    <textarea  v-model="porukaneka" name="Poruka" id="textArea" cols="30" rows="10" placeholder="Your Massage" ></textarea>
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Edit msg</button>
+                    <h3>Message</h3>
+                    <textarea  v-model="body" name="body" id="textArea" cols="30" rows="6" placeholder="Your Massage" ></textarea>
+                    <button class="btn btn-lg btn-primary btn-block edit-dugme" type="submit">Edit message</button>
                 </form>
                     <!-- kraj forme -->
 
@@ -58,7 +58,7 @@
 
         </div>  
         <!-- </transition> -->
-
+        <router-link to="/Users" class="users-nav">Go back to Users</router-link>
         <div class="paginacija">
 
                 <div class="containernovi">
@@ -101,6 +101,7 @@
  <script>
  import axios from 'axios';
 import { log } from 'util';
+import { async } from 'q';
  export default {
      name: 'Messages',
     data(){
@@ -109,8 +110,11 @@ import { log } from 'util';
             messages: [],
             ime: "",
             email: "",
-            porukaneka: "",
+            body: "",
             lastPage:'', 
+
+            currentUser: "",
+            formData : {},
 
             active_el: 0,
           active_elColor: "#202646",
@@ -135,6 +139,17 @@ import { log } from 'util';
               })
         },
 
+        showAlert2(){
+           
+           Swal.fire({
+
+          type: 'success',
+          title: 'Message succesfully edites',
+          showConfirmButton: false,
+          timer: 2000
+              })
+        },
+
 
          deleteMessage: function (msgID) {
           this.$http.delete(`/messages/${msgID}`, {Authorization: localStorage.token})
@@ -142,25 +157,32 @@ import { log } from 'util';
           
     },
 
-        specificUser : function (msgID) {
+        specificMSG : function (msgID) {
             this.$http.get (`/messages/${msgID}`, {Authorization: localStorage.token})
             .then((response) => {
                 console.log(response.data.data);
                 document.getElementsByName('name')[0].value = response.data.data.name
                 document.getElementsByName('email')[0].value = response.data.data.email
-                document.getElementsByName('Poruka')[0].value = response.data.data.body
+                document.getElementsByName('body')[0].value = response.data.data.body
                 
             })
-        },
-        postMsg : function (msgID) {
-             this.$http.put (`/messages/${msgID}`,{Authorization:localStorage.token},
-                                                         {
-                                                      "name":this.ime,
-                                                      "email": this.email,
-                                                      "body": this.porukaneka
-                                                    }               
+        },  
+        EditMsg : function (msgID) {
+              
+             
+             this.$http.put (`/messages/${msgID}`, {
+                  "name": this.ime,
+                  "email": this.email,
+                  "body": this.body
+             },
+                           {Authorization:localStorage.token}
                                                     
-                                                    )
+                               ) 
+                  .then ( ()=>{
+                       document.getElementById('modal-pozadina').style.display = "none";
+                      this.showAlert2()
+                      this.poruka(this.currentPage);
+                  })
         }, 
 
          nizManje: function() {
@@ -228,12 +250,11 @@ import { log } from 'util';
                   const Edits = document.querySelectorAll('.edit');
                   const modal = document.getElementById('modal-pozadina');
                   const span = document.getElementById("close");
-
-                   const deleteMsg = document.getElementById("deleteMsg");
-                   const EditDiv = document.getElementById("EditDiv");
+                  const deleteMsg = document.getElementById("deleteMsg");
+                  const EditDiv = document.getElementById("EditDiv");
 
                    //paginacija
-                   const c = document.querySelector('.containernovi')
+                  const c = document.querySelector('.containernovi')
                   const indexs = Array.from(document.querySelectorAll('.index'))
                   let cur = -1
                   indexs.forEach((index, i) => {
@@ -273,7 +294,8 @@ import { log } from 'util';
                         document.getElementById ('Yes').addEventListener('click', async ()=> {
                            await this.deleteMessage(nekiId);
                             modal.style.display = "none";
-                            this.showAlert();
+                           await this.showAlert();
+                            this.poruka(this.currentPage);
                           
                             
             })
@@ -296,8 +318,9 @@ import { log } from 'util';
                         EditDiv.style.display = "block";
                         let poruke = this.messages;
                         let nekiId = poruke[index].id
+                        this.currentUser = nekiId;
                         console.log(nekiId);
-                        this.specificUser(nekiId)
+                        this.specificMSG(nekiId)
                         
                       
                   })
@@ -439,11 +462,51 @@ import { log } from 'util';
     margin: auto;
     z-index: 3; 
     width: 680px;
-    height: 440px;
+    height: 560px;
     padding: 20px;
     border: 3px solid #888;
     border-radius: 20px;
 }
+#modal h3 {
+    font-size: 25px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    color: blue
+}
+.users-nav {
+      position: absolute;
+      top: 20px;
+      left: 20px;   
+      color:white;
+      background-color: #1FE7B6;
+      border: none;
+      font-size: 20px;
+      padding: 10px 30px;
+      border-radius:  50px;
+    }
+    .users-nav:hover {
+      text-decoration: none;
+    }
+#porukag {
+  color: red !important;
+  margin-top: 0;
+}
+
+#modal input {
+  width: 60%;
+  height: 40px;
+  text-align: center;
+  font-size: 25px;
+}
+#modal textarea {
+  width: 60%;
+}
+#modal .edit-dugme {
+  width: 60%;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
 
 .close {
     color: #aaaaaa;

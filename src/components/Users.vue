@@ -10,31 +10,69 @@
         <form class="form-signin" @submit.prevent="signup" id="addUsers">
       <h2 class="form-signin-heading">Add user</h2>
       <label for="inputEmail" class="sr-only">Name</label>
-      <input v-model="ime" type="text" id="inputName" class="form-control" placeholder="Name" required autofocus>
-      <label for="inputEmail" class="sr-only">Email address</label>
-      <input v-model="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input v-model="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+      <input 
+            v-model="ime"
+            type="text" 
+            id="inputName" 
+            class="form-control" 
+            placeholder="Name"
+            required 
+            autofocus>
+      <label for="inputEmail" 
+            class="sr-only">Email address</label>
+      <input 
+            v-model="email" 
+            type="email" 
+            id="inputEmail" 
+            class="form-control" 
+            placeholder="Email address"
+            required
+            autofocus>
+      <label for="inputPassword"
+             class="sr-only">Password</label>
+      <input
+              v-model="password" 
+              type="password"
+              id="inputPassword" 
+              class="form-control" 
+              placeholder="Password" required>
 
-      <label for="inputPassword" class="sr-only"> Repeat Password</label>
-      <input  v-model="confirmedPassword" type="password" id="repeatPassword" class="form-control" placeholder="Repeat password" required>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Add user</button>
+      <label for="inputPassword"
+             class="sr-only"> Repeat Password</label>
+      <input  
+              v-model="confirmedPassword" 
+              type="password"
+              id="repeatPassword"
+              class="form-control"
+              placeholder="Repeat password"
+              required>
+      
+      <button class="btn btn-lg btn-primary btn-block"      type="submit">Add user</button>
       
     </form>
                     <!-- kraj forme -->
 
         <div class="editUser" id='editUsers'>
             <h3>Edit user</h3>
-            <form action="" @submit.prevent="editUser(1)" id="editUsers">
+            <form action=""
+                  @submit.prevent="editUser(currrentUser)" 
+                  id="editUsers">
                     
                     <h3>ID : <span id="id"> 1 </span></h3>
                     <label for="name">Name: </label>
-                    <input  v-model="ime" type="text" placeholder="Name" name="name">
+                    <input  v-model="ime"
+                            type="text"
+                            placeholder="Name"
+                            name="name">
                     <br>
                     <label for="email">Email: </label>
-                    <input  v-model="email" type="email" placeholder="Email" name="email">
+                    <input  v-model="email" 
+                            type="email"
+                            placeholder="Email" 
+                            name="email">
                     
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Edit User</button>
+                    <button class="btn btn-lg btn-primary btn-block" 
+                            type="submit">Edit User</button>
                 </form>
         </div>
 
@@ -59,6 +97,7 @@
       
          <!--  -->
         <router-link to="/Messages" class="message-nav">Messages</router-link>
+        <button id="logout" @click="logOut">Log out</button>
         
         <button id="uploadButton" type="button">Upload User</button>
         <h4>Upload Users</h4>
@@ -228,12 +267,10 @@ export default {
       // this.currentPage = 1;
     })
     .then (()=>{
-        // let korisnici = this.users;
-        // console.log(korisnici);
+       
         const modal = document.getElementById('modal-pozadina');
         const span = document.getElementById("close");
         const buttons = document.querySelectorAll('.dropbtn')
-        // const dropdowns = document.querySelectorAll('.dropdown-content')
         const Edits = document.querySelectorAll('.edit')
         const Deletes = document.querySelectorAll('.delete')
         const formaAddUser = document.getElementById("addUsers");
@@ -244,9 +281,7 @@ export default {
         const indexs = Array.from(document.querySelectorAll('.index'))
                 let cur = -1
                 indexs.forEach((index, i) => {
-                  index.addEventListener('click', () => {
-                    // clear
-                    
+                  index.addEventListener('click', () => {            
                     c.className = 'containernovi'
                     void c.offsetWidth; // Reflow
                     c.classList.add('open')
@@ -260,17 +295,6 @@ export default {
 
                 //PAGINACIJA
         
-        // Close the dropdown if the user clicks outside of it
-
-
-//         window.onclick = function(event) { 
-//           for (let index = 0; index < buttons.length; index++) {
-//                 if (event.target == dropdowns) {
-//                    dropdowns[index].style.display = "none";
-//   }
-//           }
-            
-// }
         
 
         for (let index = 0; index < buttons.length; index++) {
@@ -283,16 +307,13 @@ export default {
  for (let index = 0; index < Edits.length; index++) {
           
           Edits[index].addEventListener('click', ()=>{
-            console.log("radi edit"  + index);
-            // console.log(korisnici[index]);
             modal.style.display = "block";
             formaAddUser.style.display = "none";
             editUsers.style.display = "block";
-            DeleteUsers.style.display = "none";
-
+            DeleteUsers.style.display = "none";       
             let korisnici = this.users;
             let nekiId = korisnici[index].id
-            console.log(nekiId);
+            this.currrentUser = nekiId
             this.specificUser(nekiId)
           })
   
@@ -300,7 +321,7 @@ export default {
 
  for (let index = 0; index < Deletes.length; index++) {
           
-          Deletes[index].addEventListener('click', ()=>{
+            Deletes[index].addEventListener('click', ()=>{
             console.log("radi delete" +index);
             modal.style.display = "block";
             editUsers.style.display = "none";
@@ -316,6 +337,8 @@ export default {
                await this.deleteUser(nekiId);
                modal.style.display = "none";
                this.showAlert2();
+               this.niz(this.currentPage);
+               
             })
 
             document.getElementById ('No').addEventListener ('click' , ()=> {
@@ -398,6 +421,11 @@ window.onclick = function(event) {
              
     } )
     },
+
+    logOut (){
+            delete localStorage.token;
+            this.$router.replace(this.$route.query.redirect || '/Login')
+    },
     showAlert(){
            
            Swal.fire({
@@ -411,10 +439,18 @@ window.onclick = function(event) {
 
     showAlert2(){
            
-           Swal.fire({
-          // position: 'top-end',
+           Swal.fire({ 
           type: 'success',
-          title: 'User succesfully deleted',
+          title: `User  ${this.currrentUser} succesfully deleted`,
+          showConfirmButton: false,
+          timer: 2000
+              })
+        },
+      showAlert3(){
+           
+           Swal.fire({
+          type: 'success',
+          title: `User ${this.currrentUser} succesfully edited`,
           showConfirmButton: false,
           timer: 2000
               })
@@ -457,7 +493,7 @@ window.onclick = function(event) {
         signupFailed () {
           this.error = 'Sign Up failed!'
           //  delete localStorage.token
-}, 
+      }, 
         specificUser : function (msgID) {
             this.$http.get (`/users/${msgID}`, {Authorization: localStorage.token})
             .then((response) => {
@@ -469,13 +505,18 @@ window.onclick = function(event) {
             })
         },
 
-        editUser : function (msgID) {
-             this.$http.put (`/users/${msgID}`, {Authorization: localStorage.token}, 
-                                                    {
+        editUser : function (userID) {
+             this.$http.put (`/users/${userID}`,{
                                                       "name":this.ime,
-                                                      "email": this.email,
-                                                      
-                                                    })
+                                                      "email": this.email,  
+                                                    },
+                                                     {Authorization: localStorage.token}, 
+                                                    )
+                                    .then (()=> {
+                                      document.getElementById('modal-pozadina').style.display = "none";
+                                      this.showAlert3();
+                                      this.niz(this.currentPage);
+                                    })
         }, 
         nizManje: function() {
       if (this.currentPage === 1) {
@@ -607,7 +648,7 @@ p {
   background-color: white;
   border-radius: 38px;
   border: none;
-  color: aqua;
+  color: blue;
   box-shadow: 2px 3px 1px 1px rgba(194,192,194,1);
   cursor: pointer;
 }
@@ -631,6 +672,7 @@ p {
   height: 100%;
   border-bottom: 1px solid #E8E9EA;
   display: flex;
+  font-weight: 700;
   /* position: absolute;
   top: 0;
   left: 0; */
@@ -730,66 +772,8 @@ p {
 .pagnation a {
   padding: 30px;
 
-
-}
-/* .dropbtn {
-  width: 40px;
-  height: 40px;
-} */
-
-/* dropdown */
-/* 
-.dropbtn {
-  background-color: #3498DB;
-  color: white;
-  padding: 16px;
-  font-size: 20px;
-  border: none;
-  cursor: pointer;
-  width:40px;
-  height: 40px;
-  line-height: 0px;
-  margin-top: 15px !important;
-  
 }
 
-.dropbtn:hover, .dropbtn:focus {
-  background-color: #2980B9;
-}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  overflow: auto;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content button {
-  color: black;
-  width: 100%;
-  font-size: 20px;
-  padding: 6px 10px;
-  text-decoration: none;
-  display: block;
-  border: none;
-}
-
-.dropdown button:hover {
-  background-color: #4cce18;
-  color :white;
-
-  }
-
-.show {display: block;}
-*/
 .message-nav {
       position: absolute;
       top: -70px;
@@ -968,4 +952,16 @@ p {
   color: red;
 }
 /* kraj forme */
+
+#logout {
+  position: absolute;
+      top: -70px;
+      right: 100px;   
+      color:white;
+      background-color: #1FE7B6;
+      border: none;
+      font-size: 20px;
+      padding: 10px 30px;
+      border-radius:  50px;
+}
 </style>
